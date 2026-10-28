@@ -1,0 +1,34 @@
+MIT License
+
+Copyright (c) 2026 Tristan Hotham
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+This licence covers the code in code/ and the page scripts. The data files in
+data/ are derived data released under CC BY 4.0 with these credits: schools
+from the Department for Education (Get Information About Schools), the Welsh
+Government, the Scottish Government and the Department of Education Northern
+Ireland (all Open Government Licence v3.0); Northern Ireland locations from the
+ONS Postcode Directory via postcodes.io; official catchments from the councils
+listed in data/catchment_sources.csv (open map services, mostly Open Government
+Licence v3.0; contains Ordnance Survey data, Crown copyright and database
+right); boundaries from the ONS Open Geography Portal (Open Government Licence
+v3.0); places from OS Open Names (Open Government Licence v3.0) and GeoNames
+(CC BY 4.0); hill shading from AWS Terrain Tiles (Mapzen and Tilezen). The text
+of the page and the figures are released under CC BY 4.0.
