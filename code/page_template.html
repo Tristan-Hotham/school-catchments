@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>School Catchments</title>
+<meta name="description" content="Every open state school in the UK, {{schools.all_n|int}} of them, with the official catchments of the {{catchments.authorities|int}} councils that publish them openly and nearest-school zones everywhere else. Find the biggest catchments, the biggest schools and the villages furthest from a school.">
+<meta property="og:title" content="School catchments: how much of the UK does one school serve?">
+<meta property="og:description" content="{{schools.all_n|int}} schools. The biggest official catchment, {{biggest_catchments_secondary.0.catchment|raw}}, covers {{biggest_catchments_secondary.0.km2|int}} km². Find yours.">
+<meta property="og:image" content="https://maps.tristanhotham.com/school-catchments/header.png">
+<meta property="og:url" content="https://maps.tristanhotham.com/school-catchments/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800;9..144,900&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+/* Exercise-book paper, blazer navy and pencil yellow. */
+:root{
+  --bg:#F6F3EA; --panel:#ECE7D9; --fg:#1B2430; --muted:#5E6570; --rule:#DCD5C3; --card:#FCFAF4; --border:#C9C0AA;
+  --navy:#1F3A5F; --pencil:#D99A1E; --red:#B4412F; --green:#3F7D5A; --land:#E9E5DA; --sea:#DCE5E8;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#13171D; --panel:#1C222A; --fg:#ECE8DD; --muted:#A3A9B1; --rule:#2B323B; --card:#181D24; --border:#3A424D;
+  --navy:#9DB8DD; --pencil:#F0B84A; --red:#E58A74; --green:#8CC6A2; --land:#252B33; --sea:#161B21; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13171D; --panel:#1C222A; --fg:#ECE8DD; --muted:#A3A9B1; --rule:#2B323B; --card:#181D24; --border:#3A424D;
+  --navy:#9DB8DD; --pencil:#F0B84A; --red:#E58A74; --green:#8CC6A2; --land:#252B33; --sea:#161B21; color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 18px/1.62 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-x:hidden}
+.wrap{max-width:700px;margin:0 auto;padding-block:28px 64px}
+.wrap .bleed{width:min(1140px,calc(100vw - 32px));margin-left:calc((100% - min(1140px,100vw - 32px))/2);margin-right:0}
+a{color:inherit;text-decoration-color:var(--pencil);text-underline-offset:3px}
+.kicker{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.kicker b{background:var(--navy);color:var(--bg);padding:5px 8px;font-weight:500}
+header.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 24px;align-items:end;border-bottom:6px double var(--fg);padding-bottom:22px;margin-top:18px}
+h1{font:900 clamp(44px,11vw,84px)/.88 var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1 em{font-style:normal;color:var(--navy)} h1 span{color:var(--pencil)}
+.mark{width:clamp(76px,16vw,128px);height:auto;display:block}
+.dek{grid-column:1/-1;font-size:21px;line-height:1.42;margin:8px 0 0;max-width:52ch}
+.byline{font:400 13px/1.4 var(--mono);color:var(--muted);margin-top:14px}
+h2{font:800 34px/1.04 var(--display);letter-spacing:-.01em;margin:56px 0 10px;text-wrap:balance}
+h2 .n{font:500 13px/1 var(--mono);color:var(--pencil);display:block;letter-spacing:.1em;margin-bottom:10px}
+h3{font:600 20px/1.25 var(--display);margin:28px 0 6px}
+p{margin:0 0 16px}
+.lede::first-letter{font:900 72px/.8 var(--display);float:left;margin:6px 10px 0 0;color:var(--navy)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:26px 0 8px}
+.stats div{background:var(--card);padding:14px 12px}
+.stats b{display:block;font:900 clamp(22px,4.4vw,32px)/1 var(--display);letter-spacing:-.01em}
+.stats b.c{color:var(--navy)} .stats b.h{color:var(--pencil)}
+.stats span{font:400 12px/1.35 var(--mono);color:var(--muted);display:block;margin-top:6px}
+@media (max-width:600px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.figure{margin:26px 0 30px}
+.fig-h{font:600 19px/1.25 var(--display);margin:0 0 4px}
+.fig-sub{font:400 13px/1.45 var(--mono);color:var(--muted);margin:0 0 12px}
+.src{font:400 12px/1.45 var(--mono);color:var(--muted);margin-top:10px}
+.chart{width:100%;position:relative}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{font-family:var(--mono);fill:var(--fg)}
+.lab{font-size:12px}.lab.m{fill:var(--muted)}.lab.b{font-weight:500}.lab.s{font-size:11px}
+.tip{position:absolute;pointer-events:none;background:var(--fg);color:var(--bg);font:400 12px/1.45 var(--mono);padding:8px 10px;border-radius:3px;max-width:280px;z-index:1000;transform:translate(-50%,calc(-100% - 12px));display:none}
+.controls{display:flex;gap:8px 14px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
+.ctl-l{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.btn{font:500 12px/1 var(--mono);background:var(--card);color:var(--fg);border:1px solid var(--border);border-radius:3px;padding:8px 10px;cursor:pointer;min-height:36px}
+.btn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--pencil);outline-offset:2px}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:3px;overflow:hidden;max-width:100%;flex-wrap:wrap}
+.seg .btn{border:0;border-radius:0;border-right:1px solid var(--border)}
+.seg .btn:last-child{border-right:0}
+.grp{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.chk{font:500 12px/1 var(--mono);display:inline-flex;gap:6px;align-items:center;cursor:pointer;padding:6px 2px}
+.searchbox{position:relative;flex:1 1 260px;min-width:0}
+input[type=search]{font:400 15px/1 var(--mono);background:var(--card);color:var(--fg);border:1px solid var(--border);border-radius:3px;padding:10px 11px;min-height:40px;width:100%}
+.suggest{position:absolute;left:0;right:0;top:100%;margin:2px 0 0;padding:0;list-style:none;background:var(--card);border:1px solid var(--border);z-index:1001;font:400 13px/1.3 var(--mono);display:none;max-height:340px;overflow:auto}
+.suggest li{padding:8px 10px;cursor:pointer;border-bottom:1px solid var(--rule)}
+.suggest li span{color:var(--muted)}
+.suggest li[aria-selected="true"],.suggest li:hover{background:var(--panel)}
+.mapgrid{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:14px;align-items:start}
+@media (max-width:900px){.mapgrid{grid-template-columns:1fr}}
+.side{background:var(--card);border:1px solid var(--border);padding:12px 12px 10px;font:400 13px/1.45 var(--mono)}
+.side h4{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 8px}
+.side h4:first-child{margin-top:2px}
+.key{display:grid;grid-template-columns:22px minmax(0,1fr);gap:4px 8px;align-items:center}
+.key i{display:block;width:22px;height:14px;border:1px solid rgba(0,0,0,.15)}
+.key span{color:var(--muted)}
+.keynote{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.4}
+.swz{display:inline-block;width:22px;height:14px;vertical-align:-3px;margin-right:6px}
+#lmap{height:640px;border:1px solid var(--border);background:var(--sea);border-radius:2px}
+@media (max-width:600px){#lmap{height:470px}.banner{display:none}}
+.leaflet-container{font:400 12px/1.4 var(--mono);background:var(--sea)}
+.lyrBtn{background:var(--card);color:var(--fg);border:1px solid var(--border);border-radius:3px;font:600 12px/1 var(--mono);padding:8px 10px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.lyrBtn[aria-expanded="true"]{background:var(--fg);color:var(--bg)}
+.lyrPanel{background:var(--card);color:var(--fg);border:1px solid var(--border);border-radius:3px;padding:10px 12px 8px;margin-top:6px;width:244px;box-shadow:0 2px 10px rgba(0,0,0,.15);font:400 12px/1.3 var(--mono)}
+.lyrPanel[hidden]{display:none}
+.lyrPanel .row{margin:0 0 9px}
+.lyrPanel label{display:flex;gap:6px;align-items:center;cursor:pointer;font-weight:600}
+.lyrPanel input[type=range]{width:100%;accent-color:var(--fg)}
+.lyrPanel select{font:400 12px var(--mono);background:var(--bg);color:var(--fg);border:1px solid var(--border);border-radius:2px;padding:2px 4px;width:100%}
+.lyrPanel .sub{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:11px;margin-top:3px}
+.lyrPanel .sub span{flex:0 0 58px}
+.lyrPanel .reset{font:400 11px var(--mono);color:var(--muted);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
+.cityL{font:500 11px/1 var(--mono);color:var(--fg);white-space:nowrap;text-shadow:0 0 3px var(--bg),0 0 3px var(--bg),0 0 2px var(--bg);pointer-events:none}
+.cityL i{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--fg);margin-right:4px;vertical-align:1px}
+.cityL.s{font-size:10px;font-weight:400}
+.cityL.c{font-size:12.5px;font-weight:600}
+.leaflet-bar a,.leaflet-bar a:hover{background:var(--card);color:var(--fg);border-bottom-color:var(--border)}
+.leaflet-control-attribution{background:color-mix(in srgb,var(--card) 85%,transparent)!important;color:var(--muted)}
+.leaflet-control-attribution a{color:var(--fg)}
+.mapbox{position:relative}
+.loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:500 13px/1.4 var(--mono);color:var(--muted);z-index:900;pointer-events:none}
+.banner{position:absolute;left:54px;top:10px;z-index:800;background:var(--card);border:1px solid var(--border);font:500 11.5px/1.3 var(--mono);padding:6px 8px;max-width:calc(100% - 20px);pointer-events:none}
+#hov{min-height:34px;font:400 12.5px/1.45 var(--mono);color:var(--muted);margin:8px 0 0}
+#hov b{color:var(--fg);font-weight:500}
+#card .big{font:800 21px/1.15 var(--display);margin:2px 0 4px;text-wrap:balance}
+#card .sub{color:var(--muted);margin:0 0 8px}
+#card .nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:8px 0 10px}
+#card .nums div{background:var(--bg);padding:8px}
+#card .nums b{display:block;font:800 20px/1 var(--display)}
+#card .nums span{display:block;font-size:11px;color:var(--muted);margin-top:4px}
+#card .tag{display:inline-block;font-size:10.5px;padding:2px 6px;border:1px solid var(--border);border-radius:2px;margin:0 4px 4px 0}
+#card .tag.off{background:var(--navy);color:var(--bg);border-color:var(--navy)}
+#card .tag.nz{border-style:dashed}
+table{border-collapse:collapse;width:100%;font:400 13px/1.35 var(--mono)}
+th{font-weight:500;text-align:left;color:var(--muted);border-bottom:1px solid var(--border);padding:6px 6px;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+td{border-bottom:1px solid var(--rule);padding:6px 6px;vertical-align:middle}
+td.r,th.r{text-align:right}
+td .bar{display:block;height:10px;min-width:1px;background:var(--navy)}
+.tblwrap{max-height:520px;overflow:auto;border:1px solid var(--rule)}
+tr.click{cursor:pointer} tr.click:hover td{background:var(--panel)}
+.stories{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin:18px 0}
+.story{background:var(--card);border:1px solid var(--border);border-top:6px solid var(--pencil);padding:14px 14px 12px}
+.story h3{margin:0 0 6px}
+.story p{font-size:16px;line-height:1.5;margin:0 0 10px}
+.story .num{font:900 30px/1 var(--display);color:var(--navy);margin:2px 0 8px}
+.story .num small{font:400 12px/1.3 var(--mono);color:var(--muted);display:block;margin-top:4px}
+.note{background:var(--panel);border-left:4px solid var(--pencil);padding:12px 14px;margin:18px 0;font-size:16px}
+.methods li{margin:0 0 10px}
+footer{border-top:6px double var(--fg);margin-top:56px;padding-top:16px;font:400 12.5px/1.55 var(--mono);color:var(--muted)}
+footer a{color:var(--fg)}
+.theme{position:fixed;right:12px;bottom:12px;z-index:1200;border-radius:50%;width:40px;height:40px;padding:0;font-size:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="kicker"><b>Data study</b><span>Schools</span><span>·</span><span>{{schools.all_n|int}} schools</span><span>·</span><span>{{catchments.authorities|int}} councils' catchments</span></div>
+<header class="hero">
+  <h1><em>School</em> <span>catchments</span></h1>
+  <svg class="mark" viewBox="0 0 120 120" aria-hidden="true" id="heroMark"></svg>
+  <p class="dek">How much of the UK does one school serve? Every open state school, the official catchments that councils publish, and the nearest school everywhere else.</p>
+</header>
+<div class="byline">Dr Tristan Hotham · Independent researcher · <a href="https://blog.tristanhotham.com/">blog.tristanhotham.com</a></div>
+
+<p class="lede" style="margin-top:26px">Ask a parent in Hackney and a parent in Sutherland how far it is to school and you will get very different answers. In a city a primary school might serve a few hundred metres of streets. In the far north of Scotland a single high school can be responsible for a stretch of moor, mountain and coast bigger than some English counties. I wanted to see that difference on one map: every school in the UK, and the patch of land each one serves.</p>
+<p>That turned out to be harder than it sounds, because there is no UK map of school catchments. Scotland's councils draw a catchment for almost every school and many publish them, but England, Wales and Northern Ireland have no national set: English admissions mostly work on distance and oversubscription rules, and only some councils publish the areas they use. So this map does two things. Where a council publishes official catchments openly, I show them, {{catchments.n|int}} areas from {{catchments.authorities|int}} councils. Everywhere else I draw <b>nearest-school zones</b>: the land that is closer, as the crow flies, to one school than to any other. These are a geometric yardstick, not catchments, and the map marks them differently.</p>
+
+<div class="stats">
+  <div><b class="c">{{schools.all_n|int}}</b><span>open state schools: {{schools.UK.primary|int}} primary, {{schools.UK.secondary|int}} secondary, {{schools.UK.special|int}} special</span></div>
+  <div><b class="h">{{biggest_catchments_secondary.0.km2|int}} km²</b><span>the biggest official catchment: {{biggest_catchments_secondary.0.catchment|raw}}</span></div>
+  <div><b>{{agreement.all|pct}}</b><span>of official catchment land is nearest to its own catchment school</span></div>
+  <div><b class="c">{{d.scot_prim_gt5|pct}}</b><span>of Scotland's land is over 5 km from a primary school; England: {{d.eng_prim_gt5|pct}}</span></div>
+</div>
+
+<div class="note"><b>Not an admissions tool.</b> Nearest-school zones are not catchments. Real admissions depend on each school's rules, faith criteria, siblings, walking routes and how full the school is. Distances here are straight lines, not journeys, and islands make that especially rough. For a real application, always check with your council.</div>
+
+<h2><span class="n">01 · THE MAP</span>Every school and the land it serves</h2>
+<p>Solid colours with dark edges are <b>official catchments</b> published by councils. Lighter colours with pale dashed edges are <b>nearest-school zones</b>, drawn wherever no official catchment is published. Colour shows the area each school serves (or, if you switch, the size of the school). Choose primary or secondary, click anywhere to see which school is nearest and whose catchment you are in, or search for a place or postcode. Zoom in to see the schools themselves.</p>
+
+<div class="bleed">
+<div class="controls">
+  <div class="grp"><span class="ctl-l">Phase</span><div class="seg" role="group" aria-label="Phase"><button class="btn" data-ph="0" aria-pressed="true">Primary</button><button class="btn" data-ph="1" aria-pressed="false">Secondary</button></div></div>
+  <div class="grp"><span class="ctl-l">Colour</span><div class="seg" role="group" aria-label="Colour by"><button class="btn" data-col="area" aria-pressed="true">Area served</button><button class="btn" data-col="pupils" aria-pressed="false">School size</button><button class="btn" data-col="agree" aria-pressed="false">Nearest agrees?</button></div></div>
+  <div class="grp"><span class="ctl-l">Show</span>
+    <label class="chk"><input type="checkbox" id="shOff" checked> Official catchments</label>
+    <label class="chk"><input type="checkbox" id="shZone" checked> Nearest-school zones</label>
+    <label class="chk"><input type="checkbox" id="shRC"> Catholic catchments instead</label></div>
+</div>
+<div class="controls">
+  <div class="searchbox"><input type="search" id="q" placeholder="Search a place or postcode, e.g. Golspie, Kielder, SW1A 1AA" autocomplete="off" aria-label="Search a place or postcode" aria-autocomplete="list" aria-controls="sug"><ul class="suggest" id="sug" role="listbox"></ul></div>
+  <button class="btn" id="geo">Use my location</button>
+</div>
+<div class="mapgrid">
+  <div class="mapbox"><div id="lmap" role="region" aria-label="Map of school catchments and nearest-school zones"></div><div class="loading" id="loading">Loading the schools...</div><div class="banner" id="banner"></div></div>
+  <aside class="side">
+    <h4 id="keyTitle">Area served</h4>
+    <div class="key" id="key"></div>
+    <div class="keynote"><span class="swz" id="swOff"></span>official catchment<br><span class="swz" id="swZone"></span>nearest-school zone (not a catchment)<br>Dots (zoom in): schools, sized by pupils; red = Catholic</div>
+    <h4>Here</h4>
+    <div id="hov">Hover over the map to read it; click to pin a place.</div>
+    <div id="card"></div>
+  </aside>
+</div>
+<p class="src">Schools: Get Information About Schools (England), Welsh Government, Scottish Government and Department of Education Northern Ireland, 2025 to 2026, all under the Open Government Licence. Official catchments: the councils listed in section 06. Zones: my calculation. Council borders: ONS. Hill shading: AWS Terrain Tiles. Base map tiles © Esri when they load.</p>
+</div>
+
+<h2><span class="n">02 · THE BIGGEST CATCHMENTS</span>Highland high schools the size of counties</h2>
+<p>Of the official catchments I could gather, the biggest are all in the Highlands and Islands. {{biggest_catchments_secondary.0.catchment|raw}}'s catchment covers {{biggest_catchments_secondary.0.km2|int}} km² of land, for a school of {{biggest_catchments_secondary.0.pupils|int}} pupils; {{biggest_catchments_secondary.1.catchment|raw}} serves {{biggest_catchments_secondary.1.km2|int}} km² and {{biggest_catchments_secondary.2.catchment|raw}} {{biggest_catchments_secondary.2.km2|int}} km². For scale, the whole of {{d.scale_name|raw}} is about {{d.scale_km2|int}} km². The biggest primary catchment, {{biggest_catchments_primary.0.catchment|raw}}, covers {{biggest_catchments_primary.0.km2|int}} km². England's biggest official catchment in this set is {{d.eng_big_name|raw}} in {{d.eng_big_auth|raw}}, at {{d.eng_big_km2|int}} km².</p>
+<div class="figure"><div class="controls"><div class="seg" role="group" aria-label="Phase for the chart" id="bigSeg"><button class="btn" data-bp="secondary" aria-pressed="true">Secondary</button><button class="btn" data-bp="primary" aria-pressed="false">Primary</button></div></div>
+<div class="fig-h">The twelve biggest official catchments</div><div class="fig-sub">Land area in km², non-denominational catchments, councils that publish openly. Click a bar to see it on the map.</div><div class="chart" id="bigChart"></div></div>
+<p>Where there is no published catchment, the nearest-school zones tell the same story. The biggest primary zone in the UK belongs to {{biggest_zones_primary.0.name|raw}} ({{biggest_zones_primary.0.km2|int}} km², {{biggest_zones_primary.0.pupils|int}} pupils), and the biggest secondary zone to {{biggest_zones_secondary.0.name|raw}} ({{biggest_zones_secondary.0.km2|int}} km²). In England the biggest primary zone is {{biggest_zones_primary_by_nation.England.name|raw}}'s, {{biggest_zones_primary_by_nation.England.km2|int}} km² of Northumberland forest and fell for {{biggest_zones_primary_by_nation.England.pupils|int}} pupils; in Wales, {{biggest_zones_primary_by_nation.Wales.name|title}} in {{biggest_zones_primary_by_nation.Wales.la|raw}} ({{biggest_zones_primary_by_nation.Wales.km2|int}} km²); in Northern Ireland, {{biggest_zones_primary_by_nation.Northern Ireland.name|raw}} ({{biggest_zones_primary_by_nation.Northern Ireland.km2|int}} km²).</p>
+<div class="figure"><div class="fig-h">How much land does one school serve?</div><div class="fig-sub">Median nearest-school zone in km², by nation. The typical zone in Scotland is several times the typical zone in England.</div><div class="chart" id="zoneChart"></div></div>
+
+<h2><span class="n">03 · THE BIGGEST SCHOOLS</span>A small Highland school and a London giant</h2>
+<p>Area and size run in opposite directions. The schools with the most land usually have the fewest pupils: half of Scotland's primaries have {{median_pupils_primary.Scotland|int}} pupils or fewer, against {{median_pupils_primary.England|int}} in England, and {{tiny_primary.Scotland|int}} Scottish primaries have fewer than 25. At the other end, the biggest state secondary in the UK is {{biggest_secondary.0.name|raw}} in {{biggest_secondary.0.la|raw}} with {{biggest_secondary.0.pupils|int}} pupils, and the biggest primary is {{biggest_primary.0.name|raw}} in {{biggest_primary.0.la|raw}} with {{biggest_primary.0.pupils|int}}. The biggest in the other nations: {{biggest_secondary_by_nation.Scotland.name|raw}} ({{biggest_secondary_by_nation.Scotland.pupils|int}}) in Scotland, {{biggest_secondary_by_nation.Wales.name|title}} ({{biggest_secondary_by_nation.Wales.pupils|int}}) in Wales and {{biggest_secondary_by_nation.Northern Ireland.name|raw}} ({{biggest_secondary_by_nation.Northern Ireland.pupils|int}}) in Northern Ireland.</p>
+<div class="figure"><div class="controls"><div class="seg" role="group" aria-label="Phase for the chart" id="sizeSeg"><button class="btn" data-sp="secondary" aria-pressed="true">Secondary</button><button class="btn" data-sp="primary" aria-pressed="false">Primary</button></div></div>
+<div class="fig-h">The biggest state schools by roll</div><div class="fig-sub">Pupils on roll, latest census in each nation (all-through schools left out). Click a row to see the school on the map.</div><div class="tblwrap" style="max-height:none"><table id="sizeTable"></table></div></div>
+
+<h2><span class="n">04 · HOW FAR TO SCHOOL?</span>Rural distance to the nearest school</h2>
+<p>I measured the straight-line distance from every village and hamlet in Great Britain's OS Open Names gazetteer, {{settlements.villages_hamlets|int}} places, to the nearest state primary and secondary school. In England half of them are within {{settlements.by_nation.England.prim_median|f1}} km of a primary; in Scotland the median is {{settlements.by_nation.Scotland.prim_median|f1}} km, but {{settlements.by_nation.Scotland.prim_gt5|pct}} of Scottish villages and hamlets ({{settlements.by_nation.Scotland.prim_gt5_n|int}} places) are more than 5 km from one, against {{settlements.by_nation.England.prim_gt5|pct}} in England and {{settlements.by_nation.Wales.prim_gt5|pct}} in Wales. For secondary school the gap widens: {{settlements.by_nation.Scotland.sec_gt10|pct}} of Scottish villages and hamlets are more than 10 km from one.</p>
+<div class="figure"><div class="controls"><div class="seg" role="group" aria-label="Phase for the chart" id="distSeg"><button class="btn" data-dp="primary" aria-pressed="true">Primary</button><button class="btn" data-dp="secondary" aria-pressed="false">Secondary</button></div></div>
+<div class="fig-h">Villages and hamlets by distance to the nearest school</div><div class="fig-sub">Share of OS Open Names villages and hamlets in each straight-line distance band</div><div class="chart" id="distChart"></div></div>
+<p>The most remote places are islands ({{settlements.island_share|pct}} of the villages and hamlets are off the mainland), where a straight line to the nearest school crosses the sea and the real journey involves a ferry or a stay in a hostel during the week. On this measure the furthest from a secondary school is {{settlements.farthest_secondary.0.name|raw}} in {{d.far_county|raw}} ({{settlements.farthest_secondary.0.km|f1}} km), and on the mainland {{settlements.farthest_secondary_mainland.0.name|raw}} in {{settlements.farthest_secondary_mainland.0.county|raw}} ({{settlements.farthest_secondary_mainland.0.km|f1}} km). Measured over land rather than settlements, {{land_distance.Scotland.prim_gt10|pct}} of Scotland is more than 10 km from a primary school; in England it is {{land_distance.England.prim_gt10|pct1}}.</p>
+<div class="figure"><div class="fig-h">The furthest villages and hamlets from a secondary school</div><div class="fig-sub">Straight line to the nearest state secondary in any nation of Great Britain. Click a row to see it.</div><div class="tblwrap" style="max-height:none"><table id="farTable"></table></div></div>
+
+<h2><span class="n">05 · CATCHMENT OR NEAREST?</span>Two thirds of the time, the nearest school is your catchment school</h2>
+<p>Where a council publishes catchments, I can test the yardstick. For every official catchment linked to its school, I laid a fine grid of points over it and asked: is this catchment's school also the nearest school of its kind? Weighted by area, the answer is yes for {{agreement.all|pct}} of catchment land ({{agreement.primary|pct}} for primary, {{agreement.secondary|pct}} for secondary). So the nearest-school zones on the map are a fair first guess, but a third of the time the official answer is a different school, because catchments follow roads, rivers, parishes, history and the size of buildings rather than straight lines. In {{agreement.share_below_half|pct}} of catchments, less than half of the land is nearest to the catchment's own school.</p>
+<div class="figure"><div class="fig-h">How often the nearest school is the catchment school, by council</div><div class="fig-sub">Share of official catchment land (area-weighted) where the catchment school is also the nearest school of its kind</div><div class="chart" id="agreeChart"></div></div>
+<p>Catholic catchments in Scotland are much bigger, because there are fewer Catholic schools: they agree with the nearest Catholic school for {{agreement.denom|pct}} of their land. Switch on "Catholic catchments instead" on the map to see them.</p>
+
+<h2><span class="n">06 · WHO PUBLISHES CATCHMENTS?</span>Coverage, honestly</h2>
+<p>I found official catchments published as open map services by {{catchments.by_nation.Scotland.authorities|int}} of Scotland's 32 councils, {{catchments.by_nation.England.authorities|int}} English councils and {{catchments.by_nation.Wales.authorities|int}} Welsh council. Scotland's councils also share a national catchment layer through the Improvement Service's Spatial Hub, but downloading it requires accepting the Hub's terms in a web form, so I used each council's own open service instead and left the rest as nearest-school zones. Northern Ireland has no catchments at all: admission is by each school's criteria. Many English councils have no catchments either, or publish them only as PDFs or postcode lookups.</p>
+<div class="figure"><div class="fig-h">Councils with open catchment data used here</div><div class="fig-sub">Number of catchments and their land area. Some layers are dated or marked as working copies by their publishers; see the sources file.</div><div class="tblwrap"><table id="covTable"></table></div></div>
+
+<h2><span class="n">07 · STORIES</span>Five places</h2>
+<div class="stories" id="stories">
+  <div class="story"><h3>{{biggest_catchments_secondary.0.catchment|raw}}</h3><div class="num">{{biggest_catchments_secondary.0.km2|int}} km²<small>official catchment, {{biggest_catchments_secondary.0.pupils|int}} pupils</small></div><p>The biggest official catchment I could find runs from the east coast of Sutherland deep into the empty interior. That is roughly {{d.golspie_per_pupil|f1}} km² of land for every pupil on the roll.</p><button class="btn" data-fly="{{d.golspie_fly|raw}}">Show on map</button></div>
+  <div class="story"><h3>Kielder, Northumberland</h3><div class="num">{{biggest_zones_primary_by_nation.England.km2|int}} km²<small>England's biggest primary zone, {{biggest_zones_primary_by_nation.England.pupils|int}} pupils</small></div><p>Kielder's school sits in England's biggest forest, beside Kielder Water and close to the Scottish border. No other English primary is nearest to so much land.</p><button class="btn" data-fly="{{d.kielder_fly|raw}}">Show on map</button></div>
+  <div class="story"><h3>{{biggest_secondary.0.name|raw}}</h3><div class="num">{{biggest_secondary.0.pupils|int}}<small>pupils, the biggest state school roll in the UK</small></div><p>In east London, where schools are close together, nearest-school zones shrink to a few streets: the median primary zone in England is {{d.eng_zone_prim_med|f1}} km², and in inner London far less.</p><button class="btn" data-fly="{{d.bigschool_fly|raw}}">Show on map</button></div>
+  <div class="story"><h3>The islands</h3><div class="num">{{settlements.farthest_secondary.0.km|int}} km<small>{{settlements.farthest_secondary.0.name|raw}} to the nearest secondary, straight line</small></div><p>On Shetland's outer islands and the small isles of the west, a straight line badly understates the journey. Many island pupils board in a school hostel during the week for secondary school.</p><button class="btn" data-fly="{{d.island_fly|raw}}">Show on map</button></div>
+  <div class="story"><h3>Northern Ireland</h3><div class="num">0<small>catchments: admission by school criteria</small></div><p>Northern Ireland has {{schools.Northern Ireland.primary|int}} primaries and {{schools.Northern Ireland.secondary|int}} post-primary schools but no catchments. Its nearest-school zones mix grammar and non-grammar, Catholic, controlled and integrated schools, so they are an especially loose guide there.</p><button class="btn" data-fly="54.6,-6.7,8">Show on map</button></div>
+</div>
+
+<h2><span class="n">08 · METHODS AND CAVEATS</span>What I did, and what to doubt</h2>
+<ul class="methods">
+<li><b>Schools.</b> England: Get Information About Schools (GIAS), download of 28 October 2026, open establishments in the local authority maintained, academy, free school and special school groups; nurseries, sixth-form-only colleges and independent schools are left out; locations from GIAS eastings and northings; rolls from the January 2026 census as published in GIAS. Wales: the Welsh Government's address list of maintained schools from DataMapWales, with pupil numbers. Scotland: Scottish School Roll and Locations (Scottish Government), local authority schools. Northern Ireland: Department of Education school-level enrolment data for 2025/26; I located schools at their postcode centroid using postcodes.io (ONS Postcode Directory), and {{ni_unplaced|int}} schools whose postcodes were not found are left off. Primary includes middle schools deemed primary; secondary includes middle schools deemed secondary; all-through schools count as both. Scotland lists the departments of its combined schools (for example the primary and secondary of a junior high school) separately, and I count them separately too, so the {{schools.all_n|int}} schools are {{schools.distinct_n|int}} distinct establishments. I kept school names and published rolls only; no personal data.</li>
+<li><b>Official catchments.</b> I searched data.gov.uk and ArcGIS Online for council catchment services that open without a login, downloaded the polygons in the browser (simplified on the server to about 20 m), and chose one layer per council, phase and denomination by hand, preferring each council's own open-data account and the current year. I dropped polygons that are not a school's catchment (for example "no catchment area" or county-wide areas), clipped everything to the council's land using ONS boundaries, and linked each catchment to a school: a school of the same phase inside it, choosing the closest name if there are several ({{catchments.matched_share|pct}} linked). Shared or choice areas and a few dated layers remain; Wokingham, Lancashire and Bristol publish overlapping priority areas that do not fit a one-school-one-area map, so I left them out.</li>
+<li><b>Nearest-school zones.</b> For each nation and phase, a Voronoi cell around every mainstream state school (special schools excluded), clipped to the nation's land, measured in British National Grid (Irish Transverse Mercator for Northern Ireland). Faith and non-faith schools are mixed together; zones stop at national borders; straight lines ignore roads, ferries and mountains. On the map the zones are recalculated in your browser for the schools on screen, which can differ by a few metres from my figures.</li>
+<li><b>Agreement.</b> Points on a grid of at least 200 m inside each linked catchment; "agrees" means the nearest school of the same phase (Catholic schools for denominational catchments; in Scotland non-Catholic schools for the others) is the catchment's school. The share is weighted by catchment area.</li>
+<li><b>Distances.</b> Straight lines from OS Open Names villages and hamlets (Great Britain only), and from a 1 km grid over all UK land, to the nearest mainstream state school of each phase in the same island (Great Britain or Ireland).</li>
+<li><b>Honest limits.</b> Council layers differ in date, care and purpose, and a few are labelled as working copies. Rolls are a single census day. A place's nearest school may be full, of the wrong faith or selective. This is a map for curiosity and comparison, not for applications.</li>
+</ul>
+
+<h2><span class="n">09 · SOURCES</span>Data and licences</h2>
+<ul class="methods">
+<li>Department for Education, <a href="https://get-information-schools.service.gov.uk/">Get Information About Schools</a>, all establishments, 28 October 2026. Open Government Licence v3.0.</li>
+<li>Welsh Government, address list of schools, via <a href="https://datamap.gov.wales/">DataMapWales</a> (maintained schools). Open Government Licence v3.0.</li>
+<li>Scottish Government, Scottish School Roll and Locations, <a href="https://maps.gov.scot/">maps.gov.scot</a>. Open Government Licence v3.0.</li>
+<li>Department of Education Northern Ireland, <a href="https://www.education-ni.gov.uk/publications/school-enrolment-school-level-data-20252026">school enrolment, school level data 2025/26</a>. Open Government Licence v3.0. Postcode centroids from <a href="https://postcodes.io/">postcodes.io</a> (ONS Postcode Directory; Northern Ireland postcode locations are Crown copyright, Land and Property Services, used under ONSPD terms).</li>
+<li>Official catchments from {{catchments.authorities|int}} councils' open map services; each layer, its address and its licence note are listed in <a href="data/catchment_sources.csv">catchment_sources.csv</a>. Most are published under the Open Government Licence; they contain Ordnance Survey data © Crown copyright and database right.</li>
+<li>ONS Open Geography Portal, Local Authority Districts (December 2024) Boundaries UK BGC. Open Government Licence v3.0; contains OS data © Crown copyright and database right 2024.</li>
+<li>Ordnance Survey, <a href="https://www.ordnancesurvey.co.uk/products/os-open-names">OS Open Names</a> (Open Government Licence v3.0); GeoNames cities15000 for Northern Ireland towns (CC BY 4.0); AWS Terrain Tiles (Mapzen and Tilezen) for hill shading.</li>
+<li>Leaflet 1.9.4 and d3-delaunay 6.0.4; base map tiles © Esri when they load.</li>
+</ul>
+<p>Derived data, text and figures: CC BY 4.0. Code: MIT. <a href="https://github.com/Tristan-Hotham/school-catchments">Data and code on GitHub</a>. Paper and archived release: <a href="https://doi.org/10.5281/zenodo.23748248">https://doi.org/10.5281/zenodo.23748248</a>.</p>
+
+<footer>
+  <p>Dr Tristan Hotham, Independent researcher. ORCID 0000-0003-4931-9349. Cite as: Hotham, T. (2026) School catchments: how much of the UK does one school serve? https://doi.org/10.5281/zenodo.23748248</p>
+  <p>I wrote the text, with drafting and editing assistance from Claude (Anthropic), which also helped prepare the analysis code. I reviewed and checked all text and results.</p>
+  <p>Other studies: <a href="https://maps.tristanhotham.com/sun-and-rain-uk/">Sun and rain in the UK</a>, <a href="https://maps.tristanhotham.com/hard-water/">Hard water</a>, <a href="https://blog.tristanhotham.com/">all posts</a>.</p>
+</footer>
+</div>
+<div class="tip" id="tip"></div>
+<button class="btn theme" id="theme" aria-label="Toggle dark mode">◐</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-delaunay@6.0.4/dist/d3-delaunay.min.js"></script>
+<script>
+const R = /*RESULTS*/;
+const HERO = /*HERO*/;
+const HILLS = /*HILLS*/;
+const NS = "http://www.w3.org/2000/svg";
+const el = (t, a = {}, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
+const fmt = n => n == null ? "n/a" : Math.round(n).toLocaleString("en-GB");
+const f1 = n => n == null ? "n/a" : (n < 10 ? n.toFixed(1) : Math.round(n).toLocaleString("en-GB"));
+const pc = (x, d = 0) => (x * 100).toFixed(d) + "%";
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const tip = document.getElementById("tip");
+function showTip(h, x, y) { tip.innerHTML = h; tip.style.display = "block"; const w = tip.offsetWidth; x = Math.max(w / 2 + 8, Math.min(innerWidth - w / 2 - 8, x)); tip.style.left = x + scrollX + "px"; tip.style.top = y + scrollY + "px"; }
+function hideTip() { tip.style.display = "none"; }
+function hover(node, h) { node.style.cursor = "pointer"; node.addEventListener("pointerenter", e => showTip(h, e.clientX, e.clientY)); node.addEventListener("pointermove", e => showTip(h, e.clientX, e.clientY)); node.addEventListener("pointerleave", hideTip); }
+const redraws = [];
+function resp(box, render) { let last = 0; const go = (force) => { const w = Math.max(280, Math.round(box.clientWidth)); if (!force && Math.abs(w - last) < 4) return; last = w; box.innerHTML = ""; render(w, w < 560); }; new ResizeObserver(() => go()).observe(box); go(); redraws.push(() => go(true)); }
+const lbl = (svg, x, y, s, cls = "lab", anchor = "start") => { const t = el("text", { x, y, class: cls, "text-anchor": anchor }, svg); t.textContent = s; return t; };
+const isDark = () => { const r = document.documentElement; return r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; };
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const hex = h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+const NATS = ["England", "Wales", "Scotland", "Northern Ireland"];
+const PH = ["primary", "secondary"];
+
+/* hero mark: a school's patch among its neighbours */
+(function () {
+  const g = document.getElementById("heroMark");
+  HERO.cells.forEach((d, i) => el("path", { d, fill: i === HERO.mid ? "var(--pencil)" : (i % 3 === 0 ? "var(--navy)" : i % 3 === 1 ? "color-mix(in srgb,var(--navy) 55%,var(--bg))" : "color-mix(in srgb,var(--navy) 25%,var(--bg))"), stroke: "var(--bg)", "stroke-width": 2.2 }, g));
+  HERO.pts.forEach((p, i) => el("circle", { cx: p[0], cy: p[1], r: i === HERO.mid ? 4.2 : 2.6, fill: i === HERO.mid ? "var(--fg)" : "var(--bg)" }, g));
+  el("circle", { cx: 60, cy: 60, r: 57, fill: "none", stroke: "currentColor", "stroke-width": 2.5 }, g);
+})();
+
+/* ---------------- colour scales ---------------- */
+// area served: 7 classes on a log scale, from pale chalk to deep blazer navy; school size: 6 classes; agreement: 5 classes
+const AREA_BRK = { 0: [1, 3, 10, 30, 100, 300], 1: [5, 15, 50, 150, 500, 1500] };
+const AREA_COL = ["#FBF3D6", "#F2DE9C", "#D8C77C", "#9DB38A", "#5E9283", "#3A6A82", "#22406A"];
+const PUP_BRK = { 0: [50, 100, 200, 300, 450], 1: [300, 600, 900, 1200, 1600] };
+const PUP_COL = ["#FBEAD2", "#F3C88E", "#E5A15A", "#CC7440", "#A54C32", "#6E2E24"];
+const AG_BRK = [.2, .4, .6, .8];
+const AG_COL = ["#B4412F", "#E09C72", "#EFE3C4", "#9CC3A6", "#3F7D5A"];
+const cls = (v, brk) => { let k = 0; while (k < brk.length && v >= brk[k]) k++; return k; };
+const S = { ph: 0, col: "area", off: true, zone: true, rc: false, sel: null, pin: null };
+function colourFor(km2, pupils, agree, official) {
+  if (S.col === "area") return km2 == null ? null : AREA_COL[cls(km2, AREA_BRK[S.ph])];
+  if (S.col === "pupils") return pupils == null ? null : PUP_COL[cls(pupils, PUP_BRK[S.ph])];
+  if (!official) return isDark() ? "#3A424D" : "#D9D4C6";
+  return agree == null ? null : AG_COL[cls(agree, AG_BRK)];
+}
+function keyRows() {
+  const box = document.getElementById("key"), t = document.getElementById("keyTitle");
+  let rows = [];
+  if (S.col === "area") { const b = AREA_BRK[S.ph]; t.textContent = "Area served, km²"; rows = AREA_COL.map((c, i) => [c, i === 0 ? "under " + b[0] : i === b.length ? b[b.length - 1].toLocaleString("en-GB") + " or more" : b[i - 1].toLocaleString("en-GB") + " to " + b[i].toLocaleString("en-GB")]); }
+  else if (S.col === "pupils") { const b = PUP_BRK[S.ph]; t.textContent = "School size, pupils"; rows = PUP_COL.map((c, i) => [c, i === 0 ? "under " + b[0] : i === b.length ? b[b.length - 1].toLocaleString("en-GB") + " or more" : b[i - 1].toLocaleString("en-GB") + " to " + b[i].toLocaleString("en-GB")]); }
+  else { t.textContent = "Nearest school is the catchment school"; rows = AG_COL.map((c, i) => [c, ["under 20% of the land", "20% to 40%", "40% to 60%", "60% to 80%", "80% or more"][i]]); rows.push([isDark() ? "#3A424D" : "#D9D4C6", "nearest-school zone (no test)"]); }
+  box.innerHTML = rows.map(([c, s]) => `<i style="background:${c}"></i><span>${s}</span>`).join("");
+  document.getElementById("swOff").style.cssText = `background:${AREA_COL[3]};border:2px solid ${isDark() ? "#ECE8DD" : "#1B2430"}`;
+  document.getElementById("swZone").style.cssText = `background:color-mix(in srgb,${AREA_COL[3]} 55%,transparent);border:1.5px dashed ${isDark() ? "#13171D" : "#fff"};outline:1px solid var(--border)`;
+}
+
+/* ---------------- data ---------------- */
+let SC = null, CA = null, LAND = null, PLACES = null;
+const proj = (lat, lon) => L.CRS.EPSG3857.project(L.latLng(lat, lon));        // metres in Web Mercator
+function decodeRings(rings) { // delta-coded 1e-5 degrees -> arrays of [x,y] Mercator metres
+  return rings.map(r => { const out = []; let x = 0, y = 0; for (let i = 0; i < r.length; i += 2) { x += r[i]; y += r[i + 1]; const p = proj(y / 1e5, x / 1e5); out.push([p.x, p.y]); } return out; });
+}
+function bboxOf(polys) { let a = Infinity, b = Infinity, c = -Infinity, d = -Infinity; for (const rings of polys) for (const r of rings) for (const [x, y] of r) { if (x < a) a = x; if (y < b) b = y; if (x > c) c = x; if (y > d) d = y; } return [a, b, c, d]; }
+function inRing(x, y, r) { let inside = false; for (let i = 0, j = r.length - 1; i < r.length; j = i++) { const [xi, yi] = r[i], [xj, yj] = r[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) inside = !inside; } return inside; }
+function inPolys(x, y, polys) { for (const rings of polys) { if (inRing(x, y, rings[0])) { let hole = false; for (let k = 1; k < rings.length; k++) if (inRing(x, y, rings[k])) { hole = true; break; } if (!hole) return true; } } return false; }
+
+const VOR = {};   // key nation|phase -> {idx: school indices, pts, delaunay, voronoi, cells}
+function zonesFor(nat, ph) {
+  const k = nat + "|" + ph; if (VOR[k]) return VOR[k];
+  const idx = []; SC.forEach((s, i) => { if (s.nat === nat && (s.flags & (1 << ph))) idx.push(i); });
+  const pts = new Float64Array(idx.length * 2); idx.forEach((i, j) => { pts[2 * j] = SC[i].x + (j % 7) * 1e-3; pts[2 * j + 1] = SC[i].y; });
+  const del = new d3.Delaunay(pts);
+  const lb = LAND[nat].bbox, vor = del.voronoi([lb[0] - 5e4, lb[1] - 5e4, lb[2] + 5e4, lb[3] + 5e4]);
+  const cells = idx.map((_, j) => vor.cellPolygon(j));
+  return VOR[k] = { idx, del, cells };
+}
+function nationAt(x, y) { for (let n = 0; n < 4; n++) { const Lb = LAND[n]; if (x < Lb.bbox[0] || x > Lb.bbox[2] || y < Lb.bbox[1] || y > Lb.bbox[3]) continue; if (inPolys(x, y, Lb.polys)) return n; } return -1; }
+function nearestSchool(x, y, ph, nat) { const Z = zonesFor(nat, ph); const j = Z.del.find(x, y); return Z.idx[j]; }
+function catchmentAt(x, y, ph, rc) { for (const c of CA) { if (c.ph !== ph || c.rc !== rc) continue; const b = c.bb; if (x < b[0] || x > b[2] || y < b[1] || y > b[3]) continue; if (inPolys(x, y, c.polys)) return c; } return null; }
+
+/* ---------------- the map ---------------- */
+const ESRI = "https://server.arcgisonline.com/ArcGIS/rest/services/", ESRI_ATT = "Tiles © Esri";
+const LY = { base: "light", tilesK: 80, hills: true, hillK: 55, names: true, nameLvl: 1, borders: true, borderK: 40, colour: 85 };
+const LYDEF = { ...LY };
+try { Object.assign(LY, JSON.parse(localStorage.getItem("sc_layers") || "{}")); } catch (e) {}
+const saveLY = () => { try { localStorage.setItem("sc_layers", JSON.stringify(LY)); } catch (e) {} };
+let lmap, base = null, hillL = null, nameL = null, layer = null;
+
+const SchoolCanvas = L.Layer.extend({
+  onAdd(map) { this._map = map; const c = this._c = L.DomUtil.create("canvas", "leaflet-zoom-hide"); c.style.position = "absolute"; map.getPane("schools").appendChild(c);
+    map.on("moveend zoomend resize", this.redraw, this); this.redraw(); },
+  onRemove(map) { L.DomUtil.remove(this._c); map.off("moveend zoomend resize", this.redraw, this); },
+  redraw() { if (!this._map || !SC) return; cancelAnimationFrame(this._raf); this._raf = requestAnimationFrame(() => draw(this._map, this._c)); }
+});
+function draw(map, c) {
+  const size = map.getSize(), dpr = Math.min(2, devicePixelRatio || 1);
+  c.width = size.x * dpr; c.height = size.y * dpr; c.style.width = size.x + "px"; c.style.height = size.y + "px";
+  L.DomUtil.setPosition(c, map.containerPointToLayerPoint([0, 0]));
+  const g = c.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, size.x, size.y);
+  const z = map.getZoom(), scale = 256 * Math.pow(2, z) / (2 * Math.PI * 6378137), o = map.getPixelOrigin(), pb = map.getPixelBounds();
+  const X = x => (x + Math.PI * 6378137) * scale - o.x + (pb.min.x - pb.min.x), Y = y => (Math.PI * 6378137 - y) * scale - o.y;
+  // view box in mercator metres, with a margin
+  const tl = map.containerPointToLatLng([-40, -40]), br = map.containerPointToLatLng([size.x + 40, size.y + 40]);
+  const p1 = proj(tl.lat, tl.lng), p2 = proj(br.lat, br.lng), vb = [p1.x, p2.y, p2.x, p1.y];
+  const vis = b => !(b[2] < vb[0] || b[0] > vb[2] || b[3] < vb[1] || b[1] > vb[3]);
+  const alpha = LY.colour / 100, dark = isDark();
+  const ringPath = (r) => { g.moveTo(X(r[0][0]), Y(r[0][1])); for (let i = 1; i < r.length; i++) g.lineTo(X(r[i][0]), Y(r[i][1])); g.closePath(); };
+  const polyPath = polys => { for (const rings of polys) for (const r of rings) ringPath(r); };
+  // 1. nearest-school zones, per nation, clipped to land, then official catchments punched out
+  if (S.zone) for (let n = 0; n < 4; n++) {
+    const Ln = LAND[n]; if (!vis(Ln.bbox)) continue;
+    const Z = zonesFor(n, S.ph);
+    g.save(); g.beginPath(); polyPath(Ln.polys); g.clip("evenodd");
+    g.globalAlpha = alpha * .62;
+    const edges = [];
+    for (let j = 0; j < Z.idx.length; j++) {
+      const cell = Z.cells[j]; if (!cell) continue; const s = SC[Z.idx[j]];
+      let a = Infinity, b = Infinity, cc = -Infinity, d = -Infinity; for (const [x, y] of cell) { if (x < a) a = x; if (y < b) b = y; if (x > cc) cc = x; if (y > d) d = y; }
+      if (!vis([a, b, cc, d])) continue;
+      const col = colourFor(S.ph ? s.zs : s.zp, s.pupils, null, false); if (!col) continue;
+      g.fillStyle = col; g.beginPath(); g.moveTo(X(cell[0][0]), Y(cell[0][1])); for (let i = 1; i < cell.length; i++) g.lineTo(X(cell[i][0]), Y(cell[i][1])); g.closePath(); g.fill();
+      edges.push(cell);
+    }
+    g.globalAlpha = z >= 8 ? Math.min(1, .35 + alpha * .5) : z >= 6.5 ? .35 : .18; g.strokeStyle = dark ? "rgba(19,23,29,.9)" : "rgba(255,255,255,.95)"; g.lineWidth = z >= 9 ? 1.4 : z >= 7 ? .7 : .4; g.setLineDash(z >= 8 ? [4, 3] : []);
+    g.beginPath(); for (const cell of edges) { g.moveTo(X(cell[0][0]), Y(cell[0][1])); for (let i = 1; i < cell.length; i++) g.lineTo(X(cell[i][0]), Y(cell[i][1])); } g.stroke(); g.setLineDash([]);
+    g.restore();
+  }
+  const rc = S.rc ? 1 : 0;
+  if (S.off) {
+    // punch out the zones under every official catchment of this phase, then draw the catchments solid
+    g.save(); g.globalCompositeOperation = "destination-out"; g.globalAlpha = 1; g.beginPath();
+    for (const ca of CA) if (ca.ph === S.ph && ca.rc === rc && vis(ca.bb)) polyPath(ca.polys);
+    g.fill("nonzero"); g.restore();
+    g.globalAlpha = alpha;
+    for (const ca of CA) { if (ca.ph !== S.ph || ca.rc !== rc || !vis(ca.bb)) continue; const s = ca.si != null ? SC[ca.si] : null;
+      const col = colourFor(ca.km2, s ? s.pupils : null, ca.ag, true) || (dark ? "#3A424D" : "#D9D4C6"); g.fillStyle = col; g.beginPath(); polyPath(ca.polys); g.fill("evenodd"); }
+    g.globalAlpha = Math.min(1, .45 + alpha * .55); g.strokeStyle = dark ? "#ECE8DD" : "#1B2430"; g.lineWidth = z >= 10 ? 1.3 : z >= 8 ? .9 : .55;
+    g.beginPath(); for (const ca of CA) if (ca.ph === S.ph && ca.rc === rc && vis(ca.bb)) polyPath(ca.polys); g.stroke();
+  }
+  // 2. council borders
+  if (LY.borders) { g.globalAlpha = .15 + LY.borderK / 100 * .8; g.strokeStyle = dark ? "#C9C0AA" : "#5E6570"; g.lineWidth = z >= 9 ? 1.3 : .8; g.setLineDash([6, 4]); g.beginPath();
+    for (const b of LAND.councils) if (vis(b.bb)) polyPath(b.polys); g.stroke(); g.setLineDash([]); }
+  // 3. selection outline
+  if (S.sel) { g.globalAlpha = 1; g.strokeStyle = "#D99A1E"; g.lineWidth = 3.2; g.beginPath(); if (S.sel.polys) polyPath(S.sel.polys); else { const cell = S.sel.cell; g.moveTo(X(cell[0][0]), Y(cell[0][1])); for (let i = 1; i < cell.length; i++) g.lineTo(X(cell[i][0]), Y(cell[i][1])); g.closePath(); } g.stroke(); }
+  // 4. schools of this phase
+  const r0 = z >= 12 ? 3.2 : z >= 10 ? 2.4 : z >= 8 ? 1.6 : 1.0;
+  g.globalAlpha = z >= 8 ? 1 : z >= 7 ? .5 : 0;
+  if (g.globalAlpha) for (let i = 0; i < SC.length; i++) { const s = SC[i]; if (!(s.flags & (1 << S.ph))) continue; if (s.x < vb[0] || s.x > vb[2] || s.y < vb[1] || s.y > vb[3]) continue;
+    const r = z >= 9 && s.pupils ? Math.max(r0 * .8, Math.min(9, Math.sqrt(s.pupils) / (S.ph ? 9 : 5.5) * (z >= 12 ? 1.25 : z >= 10 ? 1 : .8))) : r0;
+    g.beginPath(); g.arc(X(s.x), Y(s.y), r, 0, 7); g.fillStyle = (s.flags & 8) ? "rgba(180,65,47,.85)" : (dark ? "rgba(236,232,221,.85)" : "rgba(27,36,48,.8)"); g.fill();
+    if (r > 2) { g.lineWidth = 1; g.strokeStyle = dark ? "#13171D" : "#fff"; g.stroke(); } }
+  if (S.pin) { const p = proj(S.pin[0], S.pin[1]); g.beginPath(); g.arc(X(p.x), Y(p.y), 6, 0, 7); g.lineWidth = 3; g.strokeStyle = "#D99A1E"; g.stroke(); }
+  document.getElementById("banner").innerHTML = bannerText(vb);
+}
+function bannerText(vb) {
+  const rc = S.rc ? 1 : 0; let n = 0; for (const ca of CA) if (ca.ph === S.ph && ca.rc === rc && !(ca.bb[2] < vb[0] || ca.bb[0] > vb[2] || ca.bb[3] < vb[1] || ca.bb[1] > vb[3])) { n++; if (n > 0) break; }
+  return `${PH[S.ph][0].toUpperCase() + PH[S.ph].slice(1)} · ${n ? "official catchments where published, " : ""}nearest-school zones elsewhere`;
+}
+
+function setTiles() {
+  if (base) { base.remove(); base = null; }
+  if (LY.base === "none") return;
+  const url = LY.base === "topo" ? ESRI + "World_Topo_Map/MapServer/tile/{z}/{y}/{x}" : LY.base === "satellite" ? ESRI + "World_Imagery/MapServer/tile/{z}/{y}/{x}" : ESRI + `Canvas/World_${LY.base === "dark" ? "Dark" : "Light"}_Gray_Base/MapServer/tile/{z}/{y}/{x}`;
+  base = L.tileLayer(url, { maxZoom: 17, maxNativeZoom: 16, attribution: ESRI_ATT, opacity: LY.tilesK / 100 }).addTo(lmap);
+}
+const MAJOR = new Set(["London", "Birmingham", "Manchester", "Glasgow", "Edinburgh", "Cardiff", "Belfast", "Leeds", "Liverpool", "Bristol", "Inverness", "Aberdeen"]);
+function placeNames() {
+  if (!lmap || !nameL) return; nameL.clearLayers(); if (!LY.names || !PLACES) return;
+  const z = lmap.getZoom(), bb = lmap.getBounds().pad(.05), lvl = LY.nameLvl;
+  const minR = z >= 12 ? 1 : z >= 10 ? (lvl === 2 ? 1 : 2) : z >= 8 ? (lvl === 2 ? 1 : lvl === 1 ? 2 : 3) : z >= 6 ? (lvl === 0 ? 3 : 2) : 3;
+  const cand = PLACES.filter(p => p[4] >= minR && bb.contains([p[2], p[3]]) && (z >= 6 || MAJOR.has(p[0]) || lvl === 2)).sort((a, b) => (MAJOR.has(b[0]) - MAJOR.has(a[0])) || b[4] - a[4]);
+  const boxes = []; let n = 0;
+  for (const p of cand) {
+    const pt = lmap.latLngToContainerPoint([p[2], p[3]]), fs = p[4] === 3 ? 12.5 : p[4] === 2 ? 11 : 10;
+    const bx = [pt.x - 4, pt.y - 8, pt.x + 10 + p[0].length * fs * .62, pt.y + 7];
+    if (boxes.some(o => bx[0] < o[2] && bx[2] > o[0] && bx[1] < o[3] && bx[3] > o[1])) continue;
+    boxes.push(bx);
+    L.marker([p[2], p[3]], { pane: "labels", interactive: false, keyboard: false, icon: L.divIcon({ className: "cityL" + (p[4] === 3 ? " c" : p[4] === 1 ? " s" : ""), html: `<i></i>${esc(p[0])}`, iconSize: null, iconAnchor: [3, 6] }) }).addTo(nameL);
+    if (++n >= 260) break;
+  }
+}
+function applyLayers() {
+  if (!lmap) return;
+  if (base) base.setOpacity(LY.tilesK / 100);
+  if (hillL) { if (LY.hills) { hillL.addTo(lmap); hillL.setOpacity(Math.min(1, LY.hillK / 70)); } else hillL.remove(); }
+  if (LY.names) nameL.addTo(lmap); else nameL.remove();
+  placeNames(); if (layer) layer.redraw();
+}
+function initLayers() {
+  const Ctl = L.Control.extend({ options: { position: "topright" }, onAdd() {
+    const d = L.DomUtil.create("div"); L.DomEvent.disableClickPropagation(d); L.DomEvent.disableScrollPropagation(d);
+    d.innerHTML = `<button class="lyrBtn" aria-expanded="false" aria-controls="lyrPanel">Map layers</button>
+<div class="lyrPanel" id="lyrPanel" hidden>
+ <div class="row"><label>Base map</label><div class="sub" style="margin-top:4px"><select id="lyBase" aria-label="Base map"><option value="light">Light grey</option><option value="dark">Dark grey</option><option value="topo">Topographic</option><option value="satellite">Satellite</option><option value="none">None</option></select></div><div class="sub"><span>strength</span><input type="range" id="lyTilesK" min="10" max="100" step="5" aria-label="Base map strength"></div></div>
+ <div class="row"><label><input type="checkbox" id="lyHills"> Hills</label><div class="sub"><span>strength</span><input type="range" id="lyHillK" min="10" max="100" step="5" aria-label="Hill shading strength"></div></div>
+ <div class="row"><label><input type="checkbox" id="lyNames"> Place names</label><div class="sub"><span>how many</span><select id="lyNameLvl" aria-label="How many place names"><option value="0">Cities only</option><option value="1">Cities and towns</option><option value="2">Down to villages</option></select></div></div>
+ <div class="row"><label><input type="checkbox" id="lyBorders"> Council borders</label><div class="sub"><span>strength</span><input type="range" id="lyBorderK" min="10" max="100" step="5" aria-label="Border strength"></div></div>
+ <div class="row"><label style="font-weight:600">Colour</label><div class="sub"><span>strength</span><input type="range" id="lyColour" min="20" max="100" step="5" aria-label="Colour strength"></div></div>
+ <button class="reset" id="lyReset">Reset layers</button>
+</div>`; return d; } });
+  lmap.addControl(new Ctl());
+  const q = id => document.getElementById(id), btn = lmap.getContainer().querySelector(".lyrBtn"), pan = q("lyrPanel");
+  btn.onclick = () => { const o = pan.hidden; pan.hidden = !o; btn.setAttribute("aria-expanded", o); };
+  const sync = () => { q("lyBase").value = LY.base; q("lyTilesK").value = LY.tilesK; q("lyHills").checked = LY.hills; q("lyHillK").value = LY.hillK; q("lyNames").checked = LY.names; q("lyNameLvl").value = LY.nameLvl; q("lyBorders").checked = LY.borders; q("lyBorderK").value = LY.borderK; q("lyColour").value = LY.colour; };
+  const on = (id, ev, f, retile) => q(id).addEventListener(ev, e => { f(e.target); saveLY(); if (retile) setTiles(); applyLayers(); });
+  on("lyBase", "change", t => LY.base = t.value, true); on("lyTilesK", "input", t => LY.tilesK = +t.value);
+  on("lyHills", "change", t => LY.hills = t.checked); on("lyHillK", "input", t => { LY.hillK = +t.value; LY.hills = q("lyHills").checked = true; });
+  on("lyNames", "change", t => LY.names = t.checked); on("lyNameLvl", "change", t => { LY.nameLvl = +t.value; LY.names = q("lyNames").checked = true; });
+  on("lyBorders", "change", t => LY.borders = t.checked); on("lyBorderK", "input", t => { LY.borderK = +t.value; LY.borders = q("lyBorders").checked = true; });
+  on("lyColour", "input", t => LY.colour = +t.value);
+  q("lyReset").onclick = () => { Object.assign(LY, LYDEF); saveLY(); sync(); setTiles(); applyLayers(); };
+  sync();
+}
+function initMap() {
+  if (!window.L) { document.getElementById("lmap").innerHTML = '<p style="padding:16px">The map library did not load.</p>'; return; }
+  lmap = L.map("lmap", { zoomSnap: .5, minZoom: 5, maxZoom: 16, scrollWheelZoom: false, maxBounds: L.latLngBounds([47.5, -14], [62.5, 6]) });
+  lmap.fitBounds([[50.0, -7.6], [58.7, 1.8]], { padding: [4, 4] });
+  lmap.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
+  lmap.attributionControl.addAttribution("Schools: DfE, Welsh Govt, Scottish Govt, DE NI (OGL) | Catchments: councils (OGL) | ONS, OS Open Names | AWS Terrain Tiles");
+  lmap.createPane("hills").style.zIndex = 250; lmap.createPane("schools").style.zIndex = 420; lmap.createPane("labels").style.zIndex = 640;
+  lmap.getPane("hills").style.pointerEvents = "none"; lmap.getPane("labels").style.pointerEvents = "none";
+  setTiles();
+  hillL = L.imageOverlay("data/hills.png", [[HILLS.south, HILLS.west], [HILLS.north, HILLS.east]], { pane: "hills", interactive: false });
+  nameL = L.layerGroup();
+  initLayers();
+  lmap.on("zoomend moveend", placeNames);
+  lmap.on("click", ev => { lmap.scrollWheelZoom.enable(); inspect(ev.latlng.lat, ev.latlng.lng, true); });
+  lmap.on("mousemove", ev => { if (!SC) return; const h = quick(ev.latlng.lat, ev.latlng.lng); document.getElementById("hov").innerHTML = h || "Hover over the map to read it; click to pin a place."; });
+}
+
+/* ---------------- reading the map ---------------- */
+function quick(lat, lon) {
+  const p = proj(lat, lon), n = nationAt(p.x, p.y); if (n < 0) return "";
+  const ca = S.off ? catchmentAt(p.x, p.y, S.ph, S.rc ? 1 : 0) : null;
+  if (ca) return `<b>${esc(ca.name)}</b> · official ${PH[S.ph]} catchment · ${f1(ca.km2)} km²`;
+  const si = nearestSchool(p.x, p.y, S.ph, n), s = SC[si];
+  return `<b>${esc(s.name)}</b> · nearest ${PH[S.ph]} school · zone ${f1(S.ph ? s.zs : s.zp)} km²`;
+}
+function distKm(lat1, lon1, lat2, lon2) { const R = 6371, t = Math.PI / 180, a = Math.sin((lat2 - lat1) * t / 2) ** 2 + Math.cos(lat1 * t) * Math.cos(lat2 * t) * Math.sin((lon2 - lon1) * t / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(a)); }
+function inspect(lat, lon, fromMap, label) {
+  if (!SC) return;
+  const p = proj(lat, lon), n = nationAt(p.x, p.y), card = document.getElementById("card");
+  S.pin = [lat, lon];
+  if (n < 0) { S.sel = null; card.innerHTML = `<p class="sub">That spot is outside the UK's land on this map. Try clicking on land.</p>`; layer.redraw(); return; }
+  const rc = S.rc ? 1 : 0, ca = catchmentAt(p.x, p.y, S.ph, rc);
+  const near = [0, 1].map(ph => SC[nearestSchool(p.x, p.y, ph, n)]);
+  const d = near.map(s => distKm(lat, lon, s.lat, s.lon));
+  const Z = zonesFor(n, S.ph), j = Z.del.find(p.x, p.y);
+  S.sel = ca ? ca : { cell: Z.cells[j] };
+  const cs = ca && ca.si != null ? SC[ca.si] : null;
+  let h = `<div class="big">${esc(label || (ca ? "In the catchment of " + ca.name : "Nearest: " + near[S.ph].name))}</div><div class="sub">${NATS[n]}${label ? "" : " · " + lat.toFixed(4) + ", " + lon.toFixed(4)}</div>`;
+  if (ca) h += `<span class="tag off">official catchment</span><span class="tag">${esc(ca.auth)}</span>${ca.rc ? '<span class="tag">Roman Catholic</span>' : ""}
+    <div class="nums"><div><b>${f1(ca.km2)}</b><span>km² of land in this catchment</span></div><div><b>${cs ? fmt(cs.pupils) : "n/a"}</b><span>pupils at ${cs ? esc(cs.name) : "its school (not linked)"}</span></div></div>
+    ${ca.ag != null ? `<p class="sub">${pc(ca.ag)} of this catchment's land is nearest to its own school.</p>` : ""}`;
+  else h += `<span class="tag nz">nearest-school zone, not an official catchment</span>${n === 3 ? '<span class="tag">no catchments in Northern Ireland</span>' : ""}`;
+  h += `<div class="nums"><div><b>${d[0].toFixed(1)} km</b><span>to the nearest primary, ${esc(near[0].name)} (${fmt(near[0].pupils)} pupils)</span></div><div><b>${d[1].toFixed(1)} km</b><span>to the nearest secondary, ${esc(near[1].name)} (${fmt(near[1].pupils)} pupils)</span></div></div>
+    <p class="sub">The nearest ${PH[S.ph]} school's zone covers ${f1(S.ph ? near[1].zs : near[0].zp)} km²; its furthest point is ${f1(S.ph ? near[1].fs : near[0].fp)} km from the school. Distances are straight lines.</p>`;
+  card.innerHTML = h; layer.redraw();
+}
+
+/* ---------------- search ---------------- */
+const qi = document.getElementById("q"), sug = document.getElementById("sug"); let sugItems = [], sugIdx = -1;
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+function showSug(items) { sugItems = items; sugIdx = -1; sug.innerHTML = items.map((p, k) => `<li role="option" data-k="${k}">${esc(p[0])} <span>${esc(p[1] || "")}</span></li>`).join(""); sug.style.display = items.length ? "block" : "none"; }
+qi.addEventListener("input", () => {
+  const v = norm(qi.value.trim()); if (v.length < 2 || !PLACES) { showSug([]); return; }
+  const a = [], b = []; for (const p of PLACES) { const n = norm(p[0]); if (n.startsWith(v)) a.push(p); else if (v.length > 3 && n.includes(v)) b.push(p); if (a.length > 40) break; }
+  a.sort((x, y) => y[4] - x[4] || x[0].length - y[0].length); showSug(a.concat(b).slice(0, 12));
+});
+sug.addEventListener("click", e => { const li = e.target.closest("li"); if (li) choose(sugItems[+li.dataset.k]); });
+qi.addEventListener("keydown", e => {
+  if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); if (!sugItems.length) return; sugIdx = (sugIdx + (e.key === "ArrowDown" ? 1 : -1) + sugItems.length) % sugItems.length; [...sug.children].forEach((li, k) => li.setAttribute("aria-selected", k === sugIdx)); }
+  else if (e.key === "Enter") { e.preventDefault(); if (sugIdx >= 0) choose(sugItems[sugIdx]); else if (/^[a-z]{1,2}\d[a-z\d]?\s*\d[a-z]{2}$/i.test(qi.value.trim())) postcode(qi.value.trim()); else if (sugItems.length) choose(sugItems[0]); }
+  else if (e.key === "Escape") showSug([]);
+});
+function choose(p) { showSug([]); qi.value = p[0]; lmap.setView([p[2], p[3]], 11); inspect(p[2], p[3], false, p[0] + (p[1] ? ", " + p[1] : "")); document.getElementById("lmap").scrollIntoView({ behavior: "smooth", block: "center" }); }
+async function postcode(pc) {
+  try { const r = await fetch("https://api.postcodes.io/postcodes/" + encodeURIComponent(pc)); const j = await r.json(); if (!j.result) throw 0; showSug([]); lmap.setView([j.result.latitude, j.result.longitude], 13); inspect(j.result.latitude, j.result.longitude, false, j.result.postcode); }
+  catch (e) { document.getElementById("card").innerHTML = '<p class="sub">That postcode was not found (postcodes are looked up with postcodes.io).</p>'; }
+}
+document.getElementById("geo").onclick = () => { if (!navigator.geolocation) return; navigator.geolocation.getCurrentPosition(pos => { lmap.setView([pos.coords.latitude, pos.coords.longitude], 12); inspect(pos.coords.latitude, pos.coords.longitude, false, "Your location"); }); };
+
+/* ---------------- controls ---------------- */
+function segBind(sel, key, f) { document.querySelectorAll(sel).forEach(b => b.addEventListener("click", () => { document.querySelectorAll(sel).forEach(x => x.setAttribute("aria-pressed", x === b)); f(b.dataset[key]); })); }
+segBind("[data-ph]", "ph", v => { S.ph = +v; S.sel = null; keyRows(); if (S.pin) inspect(S.pin[0], S.pin[1], false); else layer && layer.redraw(); });
+segBind("[data-col]", "col", v => { S.col = v; keyRows(); layer && layer.redraw(); });
+document.getElementById("shOff").onchange = e => { S.off = e.target.checked; layer && layer.redraw(); };
+document.getElementById("shZone").onchange = e => { S.zone = e.target.checked; layer && layer.redraw(); };
+document.getElementById("shRC").onchange = e => { S.rc = e.target.checked; if (S.pin) inspect(S.pin[0], S.pin[1], false); else layer && layer.redraw(); };
+document.querySelectorAll("[data-fly]").forEach(b => b.addEventListener("click", () => { const [a, c, z] = b.dataset.fly.split(",").map(Number); document.getElementById("lmap").scrollIntoView({ behavior: "smooth", block: "center" }); lmap.setView([a, c], z); inspect(a, c, false); }));
+function flyTo(lat, lon, z, label) { document.getElementById("lmap").scrollIntoView({ behavior: "smooth", block: "center" }); lmap.setView([lat, lon], z); inspect(lat, lon, false, label); }
+
+/* ---------------- charts ---------------- */
+function hbars(box, rows, opts) {   // rows: [label, value, sub, onclick]
+  resp(box, (w, narrow) => {
+    const lw = narrow ? Math.min(150, w * .42) : 230, bh = 22, gap = 6, H = rows.length * (bh + gap) + 24, svg = el("svg", { viewBox: `0 0 ${w} ${H}` }, box);
+    const max = Math.max(...rows.map(r => r[1])), x = v => lw + (w - lw - 70) * v / max;
+    rows.forEach((r, i) => { const y = 4 + i * (bh + gap);
+      const t = lbl(svg, lw - 8, y + bh / 2 + 4, r[0].length > (narrow ? 20 : 32) ? r[0].slice(0, narrow ? 19 : 31) + "…" : r[0], "lab", "end");
+      const b = el("rect", { x: lw, y, width: Math.max(1, x(r[1]) - lw), height: bh, fill: opts.colour(r, i) }, svg);
+      lbl(svg, x(r[1]) + 6, y + bh / 2 + 4, opts.fmt(r[1]), "lab b");
+      hover(b, r[2]); if (r[3]) { b.addEventListener("click", r[3]); t.style.cursor = "pointer"; t.addEventListener("click", r[3]); } });
+  });
+}
+function bigChart(ph) {
+  const box = document.getElementById("bigChart"); box.innerHTML = "";
+  const rows = R["biggest_catchments_" + ph].slice(0, 12).map(c => [c.catchment, c.km2, `<b>${esc(c.catchment)}</b><br>${esc(c.authority)} · ${fmt(c.km2)} km²${c.pupils ? " · " + fmt(c.pupils) + " pupils" : ""}`, () => { const s = SC && SC.find(x => x.id === c.school_id); if (s) { S.ph = ph === "primary" ? 0 : 1; document.querySelectorAll("[data-ph]").forEach(b => b.setAttribute("aria-pressed", +b.dataset.ph === S.ph)); keyRows(); flyTo(s.lat, s.lon, 9, c.catchment); } }]);
+  hbars(box, rows, { colour: (r, i) => i === 0 ? css("--pencil") : css("--navy"), fmt: v => fmt(v) + " km²" });
+}
+segBind("[data-bp]", "bp", v => bigChart(v));
+function zoneChart() {
+  resp(document.getElementById("zoneChart"), (w, narrow) => {
+    const lw = 86, rowH = 26, gh = 2 * rowH + 30, H = 4 * gh + 6, svg = el("svg", { viewBox: `0 0 ${w} ${H}` }, document.getElementById("zoneChart"));
+    const max = Math.max(...NATS.map(n => R.zones[n + "|secondary"].median_km2)), x = v => lw + (w - lw - 80) * v / max;
+    NATS.forEach((n, i) => { const y0 = 4 + i * gh; lbl(svg, 0, y0 + 14, n, "lab b");
+      PH.forEach((ph, k) => { const z = R.zones[n + "|" + ph], y = y0 + 20 + k * rowH;
+        lbl(svg, lw - 8, y + 15, ph, "lab m s", "end");
+        const b = el("rect", { x: lw, y: y + 3, width: Math.max(1, x(z.median_km2) - lw), height: rowH - 8, fill: k ? css("--navy") : css("--pencil") }, svg);
+        lbl(svg, x(z.median_km2) + 6, y + 15, f1(z.median_km2) + " km²", "lab");
+        hover(b, `<b>${n}, ${ph}</b><br>${fmt(z.schools)} schools · median zone ${f1(z.median_km2)} km² · biggest ${fmt(z.max_km2)} km²`); }); });
+  });
+}
+function sizeTable(ph) {
+  const t = document.getElementById("sizeTable"), rows = R["biggest_" + ph], max = rows[0].pupils;
+  t.innerHTML = `<thead><tr><th>School</th><th>Council</th><th class="r">Pupils</th><th style="width:30%"></th></tr></thead><tbody>` + rows.map((s, i) => `<tr class="click" data-i="${i}"><td>${esc(s.name)}</td><td>${esc(s.la)}</td><td class="r">${fmt(s.pupils)}</td><td><span class="bar" style="width:${s.pupils / max * 100}%"></span></td></tr>`).join("") + "</tbody>";
+  t.querySelectorAll("tr.click").forEach(tr => tr.onclick = () => { const s = rows[+tr.dataset.i]; flyTo(s.lat, s.lon, 13, s.name); });
+}
+segBind("[data-sp]", "sp", v => sizeTable(v));
+function distChart(ph) {
+  const box = document.getElementById("distChart"); box.innerHTML = "";
+  const bins = R.distance_bins[ph], E = R.distance_bin_edges, labs = E.map((e, i) => i === E.length - 1 ? "over " + e + " km" : e + " to " + E[i + 1] + " km");
+  const cols = ["#22406A", "#3A6A82", "#5E9283", "#9DB38A", "#D8C77C", "#E5A15A", "#B4412F"], nats = ["England", "Wales", "Scotland"];
+  resp(box, (w, narrow) => {
+    const lw = narrow ? 70 : 90, bh = 30, H = nats.length * (bh + 14) + 70, svg = el("svg", { viewBox: `0 0 ${w} ${H}` }, box), W2 = w - lw - 10;
+    nats.forEach((n, i) => { const b = bins[n], tot = b.reduce((a, c) => a + c, 0), y = 6 + i * (bh + 14); let x = lw; lbl(svg, lw - 8, y + bh / 2 + 4, n, "lab b", "end");
+      b.forEach((v, k) => { const wd = W2 * v / tot; const r = el("rect", { x, y, width: Math.max(0, wd - .5), height: bh, fill: cols[k] }, svg); hover(r, `<b>${n}</b>, ${PH.includes(ph) ? ph : ""} school ${labs[k]}<br>${fmt(v)} places (${pc(v / tot, 1)})`); if (wd > 34) lbl(svg, x + wd / 2, y + bh / 2 + 4, pc(v / tot), "lab s", "middle").style.fill = k < 3 ? "#fff" : "#1B2430"; x += wd; }); });
+    let lx = lw, ly = nats.length * (bh + 14) + 18; labs.forEach((s, k) => { const tw = s.length * 7 + 26; if (lx + tw > w) { lx = lw; ly += 20; } el("rect", { x: lx, y: ly - 10, width: 12, height: 12, fill: cols[k] }, svg); lbl(svg, lx + 16, ly, s, "lab s"); lx += tw; });
+  });
+}
+segBind("[data-dp]", "dp", v => distChart(v));
+function farTable() {
+  const t = document.getElementById("farTable"), rows = R.settlements.farthest_secondary;
+  t.innerHTML = `<thead><tr><th>Place</th><th>Area</th><th class="r">km</th><th>Nearest secondary</th></tr></thead><tbody>` + rows.map((s, i) => `<tr class="click" data-i="${i}"><td>${esc(s.name)}</td><td>${esc(s.county)}</td><td class="r">${s.km.toFixed(1)}</td><td>${esc(s.school)}</td></tr>`).join("") + "</tbody>";
+  t.querySelectorAll("tr.click").forEach(tr => tr.onclick = () => { const s = rows[+tr.dataset.i]; const p = PLACES && PLACES.find(x => x[0] === s.name); if (p) choose(p); });
+}
+function agreeChart() {
+  const A = Object.entries(R.agreement.by_authority).sort((a, b) => b[1] - a[1]);
+  resp(document.getElementById("agreeChart"), (w, narrow) => {
+    const lw = narrow ? 130 : 190, rh = 19, H = A.length * rh + 40, svg = el("svg", { viewBox: `0 0 ${w} ${H}` }, document.getElementById("agreeChart"));
+    const x = v => lw + (w - lw - 50) * v;
+    [0, .25, .5, .75, 1].forEach(v => { el("line", { x1: x(v), x2: x(v), y1: 0, y2: A.length * rh, stroke: css("--rule") }, svg); lbl(svg, x(v), A.length * rh + 16, pc(v), "lab m s", "middle"); });
+    el("line", { x1: x(R.agreement.all), x2: x(R.agreement.all), y1: 0, y2: A.length * rh, stroke: css("--pencil"), "stroke-width": 2, "stroke-dasharray": "4 3" }, svg);
+    lbl(svg, x(R.agreement.all) + 4, A.length * rh + 32, "all councils " + pc(R.agreement.all), "lab s").style.fill = css("--pencil");
+    A.forEach(([a, v], i) => { const y = i * rh + rh / 2; lbl(svg, lw - 8, y + 4, a, "lab s", "end"); el("line", { x1: lw, x2: x(v), y1: y, y2: y, stroke: css("--rule"), "stroke-width": 1 }, svg);
+      const c = el("circle", { cx: x(v), cy: y, r: 5.5, fill: AG_COL[cls(v, AG_BRK)], stroke: css("--fg"), "stroke-width": 1 }, svg); hover(c, `<b>${esc(a)}</b><br>${pc(v)} of catchment land nearest to its own school`); });
+  });
+}
+function covTable() {
+  const t = document.getElementById("covTable"), C = R.coverage;
+  t.innerHTML = `<thead><tr><th>Council</th><th>Nation</th><th class="r">Primary</th><th class="r">Secondary</th><th class="r">Catholic</th><th class="r">km²</th></tr></thead><tbody>` + C.map(c => `<tr><td>${esc(c.authority)}</td><td>${esc(c.nation)}</td><td class="r">${c.primary || ""}</td><td class="r">${c.secondary || ""}</td><td class="r">${c.denom || ""}</td><td class="r">${fmt(c.km2)}</td></tr>`).join("") + "</tbody>";
+}
+
+/* ---------------- load ---------------- */
+async function load() {
+  const [sc, ca, la, pl] = await Promise.all(["page_schools", "page_catchments", "page_land", "page_places"].map(f => fetch("data/" + f + ".json").then(r => r.json())));
+  SC = sc.rows.map(r => { const p = proj(r[6], r[7]); return { id: r[0], name: r[1], la: r[2], nat: r[3], flags: r[4], pupils: r[5], lat: r[6], lon: r[7], zp: r[8], zs: r[9], fp: r[10], fs: r[11], x: p.x, y: p.y }; });
+  const byId = new Map(SC.map((s, i) => [s.id, i]));
+  CA = ca.rows.map(r => { const polys = r[8].map(decodeRings); return { cid: r[0], auth: r[1], ph: r[2], rc: r[3], name: r[4], km2: r[5], si: byId.has(r[6]) ? byId.get(r[6]) : null, ag: r[7], polys, bb: bboxOf(polys) }; });
+  LAND = NATS.map(n => { const polys = la.land[n].map(decodeRings); return { polys, bbox: bboxOf(polys) }; });
+  LAND.councils = la.councils.map(c => { const polys = c[2].map(decodeRings); return { name: c[0], polys, bb: bboxOf(polys) }; });
+  PLACES = pl.rows;
+  document.getElementById("loading").style.display = "none";
+  layer = new SchoolCanvas(); layer.addTo(lmap); applyLayers();
+  farTable();
+}
+keyRows(); initMap(); bigChart("secondary"); zoneChart(); sizeTable("secondary"); distChart("primary"); agreeChart(); covTable();
+load().catch(e => { document.getElementById("loading").textContent = "The map data did not load."; console.error(e); });
+const th = document.getElementById("theme");
+th.onclick = () => { const r = document.documentElement; r.dataset.theme = isDark() ? "light" : "dark"; keyRows(); redraws.forEach(f => f()); if (LY.base === "light" && isDark()) { LY.base = "dark"; setTiles(); } else if (LY.base === "dark" && !isDark()) { LY.base = "light"; setTiles(); } applyLayers(); };
+</script>
+</body>
+</html>

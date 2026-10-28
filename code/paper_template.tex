@@ -1,0 +1,185 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella}
+\newfontfamily\headfont{Inter}[UprightFont=*-ExtraBold,BoldFont=*-ExtraBold,Extension=.otf,Path=/usr/share/fonts/opentype/inter/]
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{graphicx,booktabs,float,caption,array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{setspace}
+\setstretch{1.05}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\titleformat{\section}{\headfont\Large}{\thesection}{0.8em}{}
+\titleformat{\subsection}{\headfont\large}{\thesubsection}{0.8em}{}
+\captionsetup{font=small,labelfont=bf}
+\urlstyle{same}
+\hypersetup{pdftitle={How Much Land Does One School Serve? Official Catchments and Nearest-School Zones Across the United Kingdom},pdfauthor={Tristan Hotham}}
+
+\begin{document}
+\begin{center}
+{\Large\bfseries How Much Land Does One School Serve?\\[2pt] Official Catchments and Nearest-School Zones\\[2pt] Across the United Kingdom\par}
+\vspace{1.2em}
+{\large Tristan Hotham\par}
+\vspace{0.3em}
+{\small Independent researcher\\
+ORCID: 0000-0003-4931-9349\\
+DOI: \href{https://doi.org/10.5281/zenodo.23748248}{https://doi.org/10.5281/zenodo.23748248}\par}
+\vspace{0.8em}
+2026
+\end{center}
+
+\begin{quote}
+\small
+\begin{center}\textbf{Abstract}\end{center}
+There is no map of school catchments for the United Kingdom. Scottish councils draw a catchment for almost every school, but England, Wales and Northern Ireland have no national set, and many councils publish none. I assembled the open records of every state school in the four nations, {{schools.all_n|int}} schools with their locations and rolls, together with {{catchments.n|int}} official catchment areas published as open map services by {{catchments.authorities|int}} councils, and computed straight-line nearest-school zones (Voronoi cells clipped to land) for every primary and secondary school. The biggest official catchment found is {{biggest_catchments_secondary.0.catchment|tex}} in the Highland Council area, {{biggest_catchments_secondary.0.km2|int}} km\textsuperscript{2} of land for {{biggest_catchments_secondary.0.pupils|int}} pupils. The median nearest-school zone is {{zones.England|primary.median_km2|f1}} km\textsuperscript{2} for an English primary school and {{zones.Scotland|primary.median_km2|f1}} km\textsuperscript{2} for a Scottish one. {{land_distance.Scotland.prim_gt5|pct}} of Scotland's land, but {{land_distance.England.prim_gt5|pct}} of England's, lies more than 5 km in a straight line from a primary school. Where councils publish catchments, {{agreement.all|pct}} of catchment land (by area) is nearest to the catchment's own school, so nearest-school zones are a fair first approximation but differ from the official answer about a third of the time. The data, code and an interactive map are openly available. The results describe geography, not admissions: real access depends on admission rules, faith, selection, roads and ferries.
+
+\textbf{Keywords:} school catchments; school admissions; Voronoi; accessibility; rural schools; open data; United Kingdom; Scotland; geographic information systems
+\end{quote}
+
+\section{Introduction}
+
+Where a child goes to school is shaped by geography as much as by choice. In a large city a primary school may draw from a few hundred metres of streets; in the Highlands of Scotland a single secondary school can be responsible for an area larger than an English county. The phrase ``catchment area'' is familiar to every parent, yet there is no single map of catchments for the United Kingdom, and the four nations organise admissions differently. Scottish councils divide their areas into catchments for non-denominational and Roman Catholic primary and secondary schools, and the Improvement Service compiles these into a national layer for the Spatial Hub (Improvement Service 2026). In England, admissions are run by councils and academy trusts under the School Admissions Code, and many oversubscription criteria use straight-line distance; some councils define catchment or priority areas and others do not (Department for Education 2021). Northern Ireland has no catchments: each school publishes its own admission criteria.
+
+This note asks a simple descriptive question: how much land does one school serve, and how does that vary across the UK? It also asks a methodological one: where catchments are not published, how good a stand-in is the land nearest to each school? I answer both with open data, and I publish an interactive map at \url{https://maps.tristanhotham.com/school-catchments/} where readers can see official catchments where councils publish them and nearest-school zones elsewhere, clearly distinguished, and search for a place or postcode.
+
+\section{Data}
+
+\subsection{Schools}
+
+For England I used the Department for Education's Get Information About Schools (GIAS) download of all establishments on 28 October 2026, keeping open establishments in the local authority maintained, academy, free school and special school groups, with their phase, type, religious character, roll (from the January 2026 census as published in GIAS) and Ordnance Survey grid reference (Department for Education 2026). Independent schools, nurseries and sixth-form-only providers are excluded. For Wales I used the Welsh Government's address list of maintained schools with pupil numbers, as published on DataMapWales (Welsh Government 2026). For Scotland I used the Scottish Government's Scottish School Roll and Locations layer, keeping local authority schools (Scottish Government 2026). For Northern Ireland I used the Department of Education's school-level enrolment data for 2025/26 (Department of Education 2026) and located each school at its postcode centroid from the ONS Postcode Directory via postcodes.io; {{ni_unplaced|int}} schools whose postcodes were not found are omitted. Scotland lists the departments of combined schools separately and I count them separately, so the {{schools.all_n|int}} schools are {{schools.distinct_n|int}} distinct establishments. Table~\ref{tab:nations} summarises the result. I kept only school names, types and published rolls; no personal data were collected.
+
+\TABNATIONS
+
+\subsection{Official catchments}
+
+The national Scottish catchment layer on the Spatial Hub can only be downloaded after accepting the Hub's terms in a web form, so I did not use it. Instead I searched the data.gov.uk catalogue and ArcGIS Online for council catchment services that open without a login, and downloaded their polygons in the browser, simplified on the server to about 20 m. Of the many layers found (including historical, proposed and duplicated copies), I chose one per council, phase and denomination by hand, preferring each council's own open-data account and the current year. The result covers {{catchments.by_nation.Scotland.authorities|int}} Scottish councils, {{catchments.by_nation.England.authorities|int}} English councils and {{catchments.by_nation.Wales.authorities|int}} Welsh council (Table~\ref{tab:coverage}). Lancashire, Bristol and Wokingham publish overlapping priority areas that do not fit a one-school, one-area model and were left out. The full list of layers, with their addresses and licence notes, is part of the data release.
+
+\subsection{Boundaries and places}
+
+Land was taken from the Office for National Statistics' Local Authority Districts (December 2024) generalised clipped boundaries (ONS 2024). Villages and hamlets come from Ordnance Survey's OS Open Names (Ordnance Survey 2026), which covers Great Britain only.
+
+\section{Methods}
+
+\subsection{Linking catchments to schools}
+
+Polygons were dissolved by name, clipped to the publishing council's land, and measured in British National Grid. Polygons that are not a school's catchment (for example areas labelled ``no catchment area'', county-wide residual areas and interim zones) were dropped. Each catchment was linked to a school of the same phase lying inside it (a Roman Catholic school for denominational layers), choosing the closest name when there were several; failing that, to a school within 3 km with a similar name. {{catchments.matched_share|pct}} of the {{catchments.n|int}} catchments were linked.
+
+\subsection{Nearest-school zones}
+
+For each nation and phase I computed the Voronoi tessellation of all mainstream state schools of that phase (special schools excluded; all-through schools counted in both phases) and clipped each cell to the nation's land. A school's zone is the land closer to it, in a straight line, than to any other school of the same phase in the same nation. Zones were measured in British National Grid, or Irish Transverse Mercator for Northern Ireland. They ignore roads, water, admissions rules, faith and selection, and they stop at national borders.
+
+\subsection{Agreement between catchments and zones}
+
+For every linked catchment I laid a grid of points at least 200 m apart over it and found each point's nearest school of the same kind: Roman Catholic schools for denominational catchments, and otherwise all mainstream schools of the phase (in Scotland excluding Roman Catholic schools, which have their own catchments). Agreement is the share of points whose nearest school is the catchment's school, and I report it weighted by catchment area.
+
+\subsection{Distance}
+
+I measured the straight-line distance from every OS Open Names village and hamlet, and from a 1 km grid over all UK land, to the nearest mainstream state primary and secondary school on the same island (Great Britain or Ireland).
+
+\section{Results}
+
+\subsection{The biggest catchments}
+
+Figure~\ref{fig:map} shows the result for the whole UK. The official catchments with the most land are all in the Highlands and Islands (Table~\ref{tab:biggest} and Figure~\ref{fig:biggest}). {{biggest_catchments_secondary.0.catchment|tex}}'s catchment covers {{biggest_catchments_secondary.0.km2|int}} km\textsuperscript{2}, more than the {{d.scale_km2|int}} km\textsuperscript{2} of {{d.scale_name|tex}}, followed by {{biggest_catchments_secondary.1.catchment|tex}} ({{biggest_catchments_secondary.1.km2|int}} km\textsuperscript{2}) and {{biggest_catchments_secondary.2.catchment|tex}} ({{biggest_catchments_secondary.2.km2|int}} km\textsuperscript{2}). The biggest primary catchment is {{biggest_catchments_primary.0.catchment|tex}}'s, {{biggest_catchments_primary.0.km2|int}} km\textsuperscript{2}. England's biggest official catchment in this set is {{d.eng_big_name|tex}} in {{d.eng_big_auth|tex}}, {{d.eng_big_km2|int}} km\textsuperscript{2}. Because the Scottish national layer was not used and several island councils (Na h-Eileanan Siar, Orkney and Shetland) do not appear in the open services I found, these rankings are for the councils covered, not for the whole of Scotland.
+
+\begin{figure}[tbp]\centering
+\includegraphics[width=\textwidth]{fig_map.png}
+\caption{Nearest-school zones for secondary (left) and primary (right) schools, coloured by land area, with official catchments where published (solid areas with dark edges).}\label{fig:map}
+\end{figure}
+
+\TABBIGGEST
+
+\begin{figure}[tbp]\centering
+\includegraphics[width=\textwidth]{fig_biggest.png}
+\caption{The ten biggest official catchments for secondary and primary schools (non-denominational), land area in km\textsuperscript{2}.}\label{fig:biggest}
+\end{figure}
+
+\subsection{Nearest-school zones}
+
+Across the whole UK the zones show the same gradient (Figure~\ref{fig:zones}). The median primary zone is {{zones.England|primary.median_km2|f1}} km\textsuperscript{2} in England, {{zones.Wales|primary.median_km2|f1}} in Wales, {{zones.Scotland|primary.median_km2|f1}} in Scotland and {{zones.Northern Ireland|primary.median_km2|f1}} in Northern Ireland; the median secondary zone ranges from {{zones.England|secondary.median_km2|f1}} km\textsuperscript{2} in England to {{zones.Scotland|secondary.median_km2|f1}} km\textsuperscript{2} in Scotland. The biggest primary zone is {{biggest_zones_primary.0.name|tex}}'s ({{biggest_zones_primary.0.km2|int}} km\textsuperscript{2}, {{biggest_zones_primary.0.pupils|int}} pupils) and the biggest secondary zone {{biggest_zones_secondary.0.name|tex}}'s ({{biggest_zones_secondary.0.km2|int}} km\textsuperscript{2}). In England the biggest primary zone is {{biggest_zones_primary_by_nation.England.name|tex}}'s in Northumberland, {{biggest_zones_primary_by_nation.England.km2|int}} km\textsuperscript{2} for {{biggest_zones_primary_by_nation.England.pupils|int}} pupils.
+
+\begin{figure}[tbp]\centering
+\includegraphics[width=\textwidth]{fig_zones.png}
+\caption{Distribution of nearest-school zone areas by nation (log scale).}\label{fig:zones}
+\end{figure}
+
+Land and pupils run in opposite directions (Figure~\ref{fig:sizearea}). Half of Scotland's primary schools have {{median_pupils_primary.Scotland|int}} pupils or fewer, against {{median_pupils_primary.England|int}} in England, and {{tiny_primary.Scotland|int}} Scottish primaries have fewer than 25. The biggest state secondary by roll is {{biggest_secondary.0.name|tex}} in {{biggest_secondary.0.la|tex}} ({{biggest_secondary.0.pupils|int}} pupils) and the biggest primary {{biggest_primary.0.name|tex}} in {{biggest_primary.0.la|tex}} ({{biggest_primary.0.pupils|int}}).
+
+\begin{figure}[tbp]\centering
+\includegraphics[width=0.92\textwidth]{fig_size_area.png}
+\caption{Pupils on roll against nearest-school zone area for primary schools, by nation (both log scales).}\label{fig:sizearea}
+\end{figure}
+
+\subsection{Distance to the nearest school}
+
+Of {{settlements.villages_hamlets|int}} villages and hamlets in Great Britain, the median distance to the nearest primary school is {{settlements.by_nation.England.prim_median|f1}} km in England, {{settlements.by_nation.Wales.prim_median|f1}} km in Wales and {{settlements.by_nation.Scotland.prim_median|f1}} km in Scotland (Figure~\ref{fig:distance}). {{settlements.by_nation.Scotland.prim_gt5|pct}} of Scottish villages and hamlets are more than 5 km from a primary school, against {{settlements.by_nation.England.prim_gt5|pct}} in England and {{settlements.by_nation.Wales.prim_gt5|pct}} in Wales, and {{settlements.by_nation.Scotland.sec_gt10|pct}} are more than 10 km from a secondary school. Over land rather than settlements, {{land_distance.Scotland.prim_gt5|pct}} of Scotland is more than 5 km from a primary school and {{land_distance.Scotland.prim_gt10|pct}} more than 10 km; for England the figures are {{land_distance.England.prim_gt5|pct}} and {{land_distance.England.prim_gt10|pct1}}. The most remote places are islands, where straight lines cross the sea: {{settlements.farthest_secondary.0.name|tex}} in {{d.far_county|tex}} is {{settlements.farthest_secondary.0.km|f1}} km from the nearest secondary school; on the mainland the furthest is {{settlements.farthest_secondary_mainland.0.name|tex}} in {{settlements.farthest_secondary_mainland.0.county|tex}} ({{settlements.farthest_secondary_mainland.0.km|f1}} km).
+
+\begin{figure}[tbp]\centering
+\includegraphics[width=\textwidth]{fig_distance.png}
+\caption{Villages and hamlets (OS Open Names) by straight-line distance to the nearest primary (top) and secondary (bottom) school.}\label{fig:distance}
+\end{figure}
+
+\subsection{How well do nearest-school zones match catchments?}
+
+Weighted by area, {{agreement.all|pct}} of official catchment land is nearest to its catchment's school ({{agreement.primary|pct}} for primary and {{agreement.secondary|pct}} for secondary catchments; {{agreement.denom|pct}} for Roman Catholic catchments). Agreement varies by council from {{d.ag_min|pct}} ({{d.ag_min_name|tex}}) to {{d.ag_max|pct}} ({{d.ag_max_name|tex}}) (Figure~\ref{fig:agreement}). Scottish catchments agree more often ({{d.ag_scot|pct}} of their land) than English ones ({{d.ag_eng|pct}}); the English layers come from fewer councils and include infant, junior, first and middle school systems where the nearest school of a phase may not take the full age range. In {{agreement.share_below_half|pct}} of catchments less than half of the land is nearest to the catchment's own school. Figure~\ref{fig:fife} shows the difference for Fife: catchment boundaries follow roads, rivers, settlements and the capacity of buildings, not the perpendicular bisectors between schools.
+
+\begin{figure}[tbp]\centering
+\includegraphics[width=0.9\textwidth]{fig_agreement.png}
+\caption{Share of official catchment land (area-weighted) whose nearest school of the same kind is the catchment school, by council.}\label{fig:agreement}
+\end{figure}
+
+\begin{figure}[tbp]\centering
+\includegraphics[width=\textwidth]{fig_fife.png}
+\caption{Official primary catchments in part of Fife (left) and the nearest-school zones of the same schools (right); dots are primary schools.}\label{fig:fife}
+\end{figure}
+
+\TABCOVERAGE
+
+\section{Discussion}
+
+Two findings stand out. First, the amount of land a school serves differs by orders of magnitude across the UK, and the extremes are in Scotland's Highlands and Islands, where single secondary schools are responsible for areas of 1,500 to over 2,000 km\textsuperscript{2}. Schools there are small, and distances are long even before the sea and the mountains are taken into account. Second, a straight-line nearest-school zone is a reasonable but imperfect substitute for a catchment: it gets the right school for about two thirds of catchment land. Researchers and journalists who lack catchment data can use such zones as a first approximation, but should expect a substantial share of addresses to be assigned to the wrong school.
+
+The uneven publication of catchment data is itself a finding. Scotland has a national layer, but it sits behind a terms form; England has no catchments in many areas and publishes the rest in many formats. A small number of open, regularly updated services, such as Wiltshire's, Sheffield's and Highland's, make this kind of analysis possible.
+
+A third observation concerns what the data say about policy. In the Highlands a catchment is a statement about which school is responsible for transport and provision across a very large area; in a city it is mainly a tie-breaker between oversubscribed schools. The same word therefore describes quite different instruments, and a single UK map makes that contrast visible. Northern Ireland shows the other extreme: with no catchments at all, the nearest school is often not the one a family would choose, because of selection at eleven and the separate Catholic, controlled and integrated sectors.
+
+\section{Limitations}
+
+Coverage of official catchments is partial and uneven: {{catchments.authorities|int}} councils, mostly in Scotland. Some layers are dated or marked as working copies by their publishers. Linking catchments to schools by location and name can fail where a catchment serves a school outside it or where names differ. Nearest-school zones ignore roads, ferries, faith, selection and capacity, and stop at national borders. Northern Irish schools are placed at postcode centroids. Rolls are a single census day. Distances are straight lines, which badly understate island journeys. None of these results should be used for an individual admissions decision.
+
+\section{Conclusion}
+
+Combining every open school record in the UK with the catchments that councils publish openly shows a school system whose geography ranges from a few streets to more than two thousand square kilometres. Where catchments are not published, nearest-school zones are a transparent and reproducible stand-in that matches the official answer about two thirds of the time.
+
+\section*{Data and code availability}
+
+Data and code: \url{https://github.com/Tristan-Hotham/school-catchments}. Interactive map: \url{https://maps.tristanhotham.com/school-catchments/}. Archived release with this paper: \url{https://doi.org/10.5281/zenodo.23748248}. Derived data are released under CC BY 4.0 and code under the MIT licence; source data remain under their own licences (mostly the Open Government Licence v3.0).
+
+\section*{AI statement}
+
+I wrote the text, with drafting and editing assistance from Claude (Anthropic), which also helped prepare the analysis code. I reviewed and checked all text and results.
+
+\section*{References}
+\small
+Department for Education (2021) School Admissions Code. \url{https://www.gov.uk/government/publications/school-admissions-code}
+
+Department for Education (2026) Get Information About Schools: all establishments data, 28 October 2026. \url{https://get-information-schools.service.gov.uk/Downloads}
+
+Department of Education Northern Ireland (2026) School enrolment: school level data 2025/26. \url{https://www.education-ni.gov.uk/publications/school-enrolment-school-level-data-20252026}
+
+Improvement Service (2026) School Catchments: Scotland. Spatial Hub. \url{https://data.spatialhub.scot/dataset/school_catchments-is}
+
+Office for National Statistics (2024) Local Authority Districts (December 2024) Boundaries UK BGC. ONS Open Geography Portal. \url{https://geoportal.statistics.gov.uk}
+
+Ordnance Survey (2026) OS Open Names. \url{https://www.ordnancesurvey.co.uk/products/os-open-names}
+
+Scottish Government (2026) Scottish School Roll and Locations. \url{https://maps.gov.scot}
+
+Welsh Government (2026) Address list of schools. \url{https://gov.wales/address-list-schools}; maintained schools layer on DataMapWales, \url{https://datamap.gov.wales}
+
+\end{document}
