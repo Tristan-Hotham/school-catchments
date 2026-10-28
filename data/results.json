@@ -1,0 +1,2688 @@
+{
+ "meta": {
+  "retrieved": "2026-10-28"
+ },
+ "ni_unplaced": 2,
+ "ni_unplaced_names": [
+  "Enniskillen Royal Grammar School, Cooper Crescent",
+  "Willowbridge School"
+ ],
+ "schools": {
+  "England": {
+   "primary": 16835,
+   "secondary": 3419,
+   "special": 2020,
+   "pupils": 8239979,
+   "land_km2": 130451
+  },
+  "Wales": {
+   "primary": 1223,
+   "secondary": 204,
+   "special": 39,
+   "pupils": 458815,
+   "land_km2": 20782
+  },
+  "Scotland": {
+   "primary": 1990,
+   "secondary": 362,
+   "special": 122,
+   "pupils": 704374,
+   "land_km2": 78787
+  },
+  "Northern Ireland": {
+   "primary": 775,
+   "secondary": 189,
+   "special": 39,
+   "pupils": 338098,
+   "land_km2": 14309
+  },
+  "UK": {
+   "primary": 20823,
+   "secondary": 4174,
+   "special": 2220,
+   "pupils": 9741266,
+   "land_km2": 244329
+  },
+  "all_n": 27024,
+  "scot_dept_rows": 65,
+  "distinct_n": 26991,
+  "all_through_e": 193
+ },
+ "zones": {
+  "England|primary": {
+   "nation": "England",
+   "phase": "primary",
+   "schools": 16835,
+   "land_km2": 130451,
+   "mean_km2": 7.75,
+   "median_km2": 2.36,
+   "max_km2": 297.7,
+   "p90_km2": 21.6,
+   "pupils_median": 226.0
+  },
+  "England|secondary": {
+   "nation": "England",
+   "phase": "secondary",
+   "schools": 3419,
+   "land_km2": 130451,
+   "mean_km2": 38.15,
+   "median_km2": 11.67,
+   "max_km2": 1064.8,
+   "p90_km2": 107.9,
+   "pupils_median": 1043.0
+  },
+  "Wales|primary": {
+   "nation": "Wales",
+   "phase": "primary",
+   "schools": 1223,
+   "land_km2": 20782,
+   "mean_km2": 16.99,
+   "median_km2": 5.62,
+   "max_km2": 345.2,
+   "p90_km2": 46.8,
+   "pupils_median": 198.0
+  },
+  "Wales|secondary": {
+   "nation": "Wales",
+   "phase": "secondary",
+   "schools": 204,
+   "land_km2": 20782,
+   "mean_km2": 101.87,
+   "median_km2": 37.01,
+   "max_km2": 989.7,
+   "p90_km2": 272.3,
+   "pupils_median": 946.0
+  },
+  "Scotland|primary": {
+   "nation": "Scotland",
+   "phase": "primary",
+   "schools": 1990,
+   "land_km2": 78787,
+   "mean_km2": 39.59,
+   "median_km2": 8.15,
+   "max_km2": 841.0,
+   "p90_km2": 97.5,
+   "pupils_median": 176.0
+  },
+  "Scotland|secondary": {
+   "nation": "Scotland",
+   "phase": "secondary",
+   "schools": 362,
+   "land_km2": 78787,
+   "mean_km2": 217.64,
+   "median_km2": 50.18,
+   "max_km2": 2389.7,
+   "p90_km2": 662.7,
+   "pupils_median": 881.0
+  },
+  "Northern Ireland|primary": {
+   "nation": "Northern Ireland",
+   "phase": "primary",
+   "schools": 775,
+   "land_km2": 14309,
+   "mean_km2": 18.46,
+   "median_km2": 12.94,
+   "max_km2": 145.2,
+   "p90_km2": 42.7,
+   "pupils_median": 185.0
+  },
+  "Northern Ireland|secondary": {
+   "nation": "Northern Ireland",
+   "phase": "secondary",
+   "schools": 189,
+   "land_km2": 14309,
+   "mean_km2": 75.71,
+   "median_km2": 38.24,
+   "max_km2": 561.9,
+   "p90_km2": 186.7,
+   "pupils_median": 817.0
+  }
+ },
+ "biggest_zones_primary": [
+  {
+   "id": "S5110327P",
+   "name": "Tongue Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 27.0,
+   "lat": 58.477562,
+   "lon": -4.415472,
+   "km2": 841.0,
+   "far_km": 30.03
+  },
+  {
+   "id": "S5153522P",
+   "name": "Ullapool Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 129.0,
+   "lat": 57.898928,
+   "lon": -5.161469,
+   "km2": 800.3,
+   "far_km": 25.86
+  },
+  {
+   "id": "S5118123P",
+   "name": "Strathconon Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 6.0,
+   "lat": 57.556534,
+   "lon": -4.827293,
+   "km2": 752.6,
+   "far_km": 26.27
+  },
+  {
+   "id": "S5345022P",
+   "name": "Kinloch Rannoch Primary School",
+   "la": "Perth and Kinross",
+   "nation": "Scotland",
+   "pupils": 16.0,
+   "lat": 56.701394,
+   "lon": -4.184182,
+   "km2": 717.3,
+   "far_km": 27.69
+  },
+  {
+   "id": "S5108721P",
+   "name": "Rosehall Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 11.0,
+   "lat": 57.967298,
+   "lon": -4.543083,
+   "km2": 712.1,
+   "far_km": 28.78
+  },
+  {
+   "id": "S5256429P",
+   "name": "Braemar School",
+   "la": "Aberdeenshire",
+   "nation": "Scotland",
+   "pupils": 31.0,
+   "lat": 57.00554,
+   "lon": -3.396482,
+   "km2": 699.7,
+   "far_km": 22.24
+  },
+  {
+   "id": "S5122821P",
+   "name": "Loch Duich Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 11.0,
+   "lat": 57.23337,
+   "lon": -5.419894,
+   "km2": 699.1,
+   "far_km": 24.12
+  },
+  {
+   "id": "S5134129P",
+   "name": "Invergarry Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 22.0,
+   "lat": 57.069267,
+   "lon": -4.800926,
+   "km2": 688.6,
+   "far_km": 27.42
+  },
+  {
+   "id": "S5109922P",
+   "name": "Lairg Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 54.0,
+   "lat": 58.024218,
+   "lon": -4.396194,
+   "km2": 687.9,
+   "far_km": 30.03
+  },
+  {
+   "id": "S5145929P",
+   "name": "Newtonmore Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 115.0,
+   "lat": 57.065654,
+   "lon": -4.118024,
+   "km2": 672.6,
+   "far_km": 27.69
+  },
+  {
+   "id": "S5134420P",
+   "name": "Spean Bridge Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 87.0,
+   "lat": 56.894672,
+   "lon": -4.911893,
+   "km2": 651.9,
+   "far_km": 27.69
+  },
+  {
+   "id": "S5138221P",
+   "name": "Cannich Bridge Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 31.0,
+   "lat": 57.345097,
+   "lon": -4.76769,
+   "km2": 603.5,
+   "far_km": 22.33
+  },
+  {
+   "id": "S5135427P",
+   "name": "Kinlochleven Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 50.0,
+   "lat": 56.714455,
+   "lon": -4.966865,
+   "km2": 583.1,
+   "far_km": 24.94
+  },
+  {
+   "id": "S5116120P",
+   "name": "Lochcarron Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 54.0,
+   "lat": 57.408169,
+   "lon": -5.476964,
+   "km2": 581.9,
+   "far_km": 25.49
+  },
+  {
+   "id": "S5109728P",
+   "name": "Lochinver Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 29.0,
+   "lat": 58.143438,
+   "lon": -5.23568,
+   "km2": 577.6,
+   "far_km": 28.65
+  }
+ ],
+ "biggest_zones_primary_by_nation": {
+  "England": {
+   "id": "E122233",
+   "name": "Kielder Primary School and Nursery",
+   "la": "Northumberland",
+   "nation": "England",
+   "pupils": 10.0,
+   "lat": 55.231858,
+   "lon": -2.579525,
+   "km2": 297.7,
+   "far_km": 17.69
+  },
+  "Wales": {
+   "id": "W6662084",
+   "name": "YSGOL DOLAFON",
+   "la": "Powys",
+   "nation": "Wales",
+   "pupils": 41.0,
+   "lat": 52.107464,
+   "lon": -3.641903,
+   "km2": 345.2,
+   "far_km": 14.02
+  },
+  "Scotland": {
+   "id": "S5110327P",
+   "name": "Tongue Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 27.0,
+   "lat": 58.477562,
+   "lon": -4.415472,
+   "km2": 841.0,
+   "far_km": 30.03
+  },
+  "Northern Ireland": {
+   "id": "N2032694",
+   "name": "St Caireall's Primary School, Castlederg",
+   "la": "Derry City And Strabane",
+   "nation": "Northern Ireland",
+   "pupils": 129.0,
+   "lat": 54.689932,
+   "lon": -7.70262,
+   "km2": 145.2,
+   "far_km": 14.1
+  }
+ },
+ "smallest_zone_primary": {
+  "id": "E101746",
+  "name": "Winterbourne Nursery and Infants' School",
+  "la": "Croydon",
+  "nation": "England",
+  "pupils": 372.0,
+  "lat": 51.399314,
+  "lon": -0.114717,
+  "zone_primary_km2": 0.001
+ },
+ "biggest_zones_secondary": [
+  {
+   "id": "S5119936S",
+   "name": "Ullapool High School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 173.0,
+   "lat": 57.898227,
+   "lon": -5.154908,
+   "km2": 2389.7,
+   "far_km": 42.54
+  },
+  {
+   "id": "S5135532S",
+   "name": "Kinlochleven High School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 135.0,
+   "lat": 56.714455,
+   "lon": -4.966865,
+   "km2": 1981.5,
+   "far_km": 40.16
+  },
+  {
+   "id": "S5146038S",
+   "name": "Kingussie High School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 417.0,
+   "lat": 57.078086,
+   "lon": -4.049666,
+   "km2": 1920.0,
+   "far_km": 37.47
+  },
+  {
+   "id": "S5123437S",
+   "name": "Plockton High School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 213.0,
+   "lat": 57.334393,
+   "lon": -5.66604,
+   "km2": 1784.9,
+   "far_km": 40.64
+  },
+  {
+   "id": "S5142431S",
+   "name": "Kilchuimen Academy",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 47.0,
+   "lat": 57.143553,
+   "lon": -4.685327,
+   "km2": 1747.4,
+   "far_km": 36.16
+  },
+  {
+   "id": "S5110432S",
+   "name": "Farr High School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 68.0,
+   "lat": 58.526094,
+   "lon": -4.224921,
+   "km2": 1568.1,
+   "far_km": 63.34
+  },
+  {
+   "id": "S5109531S",
+   "name": "Golspie High School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 264.0,
+   "lat": 57.975481,
+   "lon": -3.973423,
+   "km2": 1542.8,
+   "far_km": 42.54
+  },
+  {
+   "id": "S8110336S",
+   "name": "Oban High School",
+   "la": "Argyll and Bute",
+   "nation": "Scotland",
+   "pupils": 1009.0,
+   "lat": 56.405956,
+   "lon": -5.467109,
+   "km2": 1485.5,
+   "far_km": 40.16
+  },
+  {
+   "id": "S5153239S",
+   "name": "Kinlochbervie High School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 27.0,
+   "lat": 58.461,
+   "lon": -5.03616,
+   "km2": 1483.2,
+   "far_km": 96.2
+  },
+  {
+   "id": "S5150132S",
+   "name": "Grantown Grammar School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 362.0,
+   "lat": 57.33446,
+   "lon": -3.59891,
+   "km2": 1427.5,
+   "far_km": 38.23
+  },
+  {
+   "id": "S5128234S",
+   "name": "Portree High School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 494.0,
+   "lat": 57.412761,
+   "lon": -6.20359,
+   "km2": 1388.3,
+   "far_km": 47.5
+  },
+  {
+   "id": "S5349834S",
+   "name": "Breadalbane Academy",
+   "la": "Perth and Kinross",
+   "nation": "Scotland",
+   "pupils": 410.0,
+   "lat": 56.616972,
+   "lon": -3.869887,
+   "km2": 1330.0,
+   "far_km": 37.12
+  },
+  {
+   "id": "S5722330S",
+   "name": "McLaren High School",
+   "la": "Stirling",
+   "nation": "Scotland",
+   "pupils": 641.0,
+   "lat": 56.238879,
+   "lon": -4.212523,
+   "km2": 1327.4,
+   "far_km": 40.16
+  },
+  {
+   "id": "S5257530S",
+   "name": "Aboyne Academy",
+   "la": "Aberdeenshire",
+   "nation": "Scotland",
+   "pupils": 669.0,
+   "lat": 57.075419,
+   "lon": -2.795361,
+   "km2": 1254.7,
+   "far_km": 38.23
+  },
+  {
+   "id": "S5351332S",
+   "name": "Pitlochry High School",
+   "la": "Perth and Kinross",
+   "nation": "Scotland",
+   "pupils": 117.0,
+   "lat": 56.70873,
+   "lon": -3.725273,
+   "km2": 1241.9,
+   "far_km": 38.23
+  }
+ ],
+ "biggest_zones_secondary_by_nation": {
+  "England": {
+   "id": "E122350",
+   "name": "Bellingham Middle School and Sports College",
+   "la": "Northumberland",
+   "nation": "England",
+   "pupils": 46.0,
+   "lat": 55.142164,
+   "lon": -2.246817,
+   "km2": 1064.8,
+   "far_km": 29.46
+  },
+  "Wales": {
+   "id": "W6664025",
+   "name": "Ysgol Calon Cymru",
+   "la": "Powys",
+   "nation": "Wales",
+   "pupils": 948.0,
+   "lat": 52.151227,
+   "lon": -3.40735,
+   "km2": 989.7,
+   "far_km": 31.89
+  },
+  "Scotland": {
+   "id": "S5119936S",
+   "name": "Ullapool High School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 173.0,
+   "lat": 57.898227,
+   "lon": -5.154908,
+   "km2": 2389.7,
+   "far_km": 42.54
+  },
+  "Northern Ireland": {
+   "id": "N2230109",
+   "name": "St Mary's College, Irvinestown",
+   "la": "Fermanagh And Omagh",
+   "nation": "Northern Ireland",
+   "pupils": 186.0,
+   "lat": 54.471338,
+   "lon": -7.637887,
+   "km2": 561.9,
+   "far_km": 34.99
+  }
+ },
+ "smallest_zone_secondary": {
+  "id": "E138202",
+  "name": "Wapping High School",
+  "la": "Tower Hamlets",
+  "nation": "England",
+  "pupils": 248.0,
+  "lat": 51.514974,
+  "lon": -0.061,
+  "zone_secondary_km2": 0.134
+ },
+ "biggest_primary": [
+  {
+   "id": "E132089",
+   "name": "Claycots School",
+   "la": "Slough",
+   "nation": "England",
+   "pupils": 1605.0,
+   "lat": 51.533233,
+   "lon": -0.624675,
+   "type": "Community school"
+  },
+  {
+   "id": "E152058",
+   "name": "Brooklands Farm Primary School",
+   "la": "Milton Keynes",
+   "nation": "England",
+   "pupils": 1320.0,
+   "lat": 52.05156,
+   "lon": -0.695578,
+   "type": "Academy converter"
+  },
+  {
+   "id": "E138690",
+   "name": "Barclay Primary School",
+   "la": "Waltham Forest",
+   "nation": "England",
+   "pupils": 1273.0,
+   "lat": 51.575754,
+   "lon": -0.000961,
+   "type": "Academy converter"
+  },
+  {
+   "id": "E139016",
+   "name": "The Woodside Primary Academy",
+   "la": "Waltham Forest",
+   "nation": "England",
+   "pupils": 1188.0,
+   "lat": 51.59118,
+   "lon": -0.003792,
+   "type": "Academy sponsor led"
+  },
+  {
+   "id": "E150224",
+   "name": "Hounslow Heath School",
+   "la": "Hounslow",
+   "nation": "England",
+   "pupils": 1178.0,
+   "lat": 51.468242,
+   "lon": -0.385865,
+   "type": "Community school"
+  },
+  {
+   "id": "E101193",
+   "name": "Manor Primary School",
+   "la": "Barking and Dagenham",
+   "nation": "England",
+   "pupils": 1135.0,
+   "lat": 51.542642,
+   "lon": 0.101496,
+   "type": "Community school"
+  },
+  {
+   "id": "E136413",
+   "name": "Hillyfield Primary Academy",
+   "la": "Waltham Forest",
+   "nation": "England",
+   "pupils": 1123.0,
+   "lat": 51.592935,
+   "lon": -0.034293,
+   "type": "Academy converter"
+  },
+  {
+   "id": "E142223",
+   "name": "Fernwood Primary School",
+   "la": "Nottingham",
+   "nation": "England",
+   "pupils": 1122.0,
+   "lat": 52.952098,
+   "lon": -1.229278,
+   "type": "Community school"
+  },
+  {
+   "id": "E131775",
+   "name": "Gascoigne Primary School",
+   "la": "Barking and Dagenham",
+   "nation": "England",
+   "pupils": 1115.0,
+   "lat": 51.532548,
+   "lon": 0.081047,
+   "type": "Community school"
+  },
+  {
+   "id": "E140938",
+   "name": "Harris Primary Academy Mayflower",
+   "la": "Thurrock",
+   "nation": "England",
+   "pupils": 1087.0,
+   "lat": 51.481804,
+   "lon": 0.29351,
+   "type": "Free schools"
+  },
+  {
+   "id": "E140314",
+   "name": "Beaver Road Primary School",
+   "la": "Manchester",
+   "nation": "England",
+   "pupils": 1084.0,
+   "lat": 53.417682,
+   "lon": -2.227848,
+   "type": "Academy converter"
+  },
+  {
+   "id": "E131847",
+   "name": "Christchurch Primary School",
+   "la": "Redbridge",
+   "nation": "England",
+   "pupils": 1084.0,
+   "lat": 51.564318,
+   "lon": 0.077072,
+   "type": "Community school"
+  }
+ ],
+ "biggest_primary_by_nation": {
+  "England": {
+   "id": "E132089",
+   "name": "Claycots School",
+   "la": "Slough",
+   "nation": "England",
+   "pupils": 1605.0,
+   "lat": 51.533233,
+   "lon": -0.624675
+  },
+  "Wales": {
+   "id": "W6802325",
+   "name": "St Andrews Primary School",
+   "la": "Newport",
+   "nation": "Wales",
+   "pupils": 737.0,
+   "lat": 51.580906,
+   "lon": -2.971089
+  },
+  "Scotland": {
+   "id": "S5553024P",
+   "name": "Dunbar Primary School",
+   "la": "East Lothian",
+   "nation": "Scotland",
+   "pupils": 950.0,
+   "lat": 56.000142,
+   "lon": -2.522964
+  },
+  "Northern Ireland": {
+   "id": "N1010252",
+   "name": "Strandtown Primary School, Belfast",
+   "la": "Belfast",
+   "nation": "Northern Ireland",
+   "pupils": 968.0,
+   "lat": 54.597395,
+   "lon": -5.875551
+  }
+ },
+ "median_pupils_primary": {
+  "England": 225.0,
+  "Wales": 194.0,
+  "Scotland": 176.0,
+  "Northern Ireland": 185.0
+ },
+ "tiny_primary": {
+  "England": 98,
+  "Wales": 26,
+  "Scotland": 176,
+  "Northern Ireland": 7
+ },
+ "smallest_primary": [
+  {
+   "id": "E143185",
+   "name": "Lady Modiford's Church of England Primary School",
+   "la": "Devon",
+   "nation": "England",
+   "pupils": 1.0,
+   "lat": 50.509411,
+   "lon": -4.070333
+  },
+  {
+   "id": "S6001025P",
+   "name": "Flotta Community School",
+   "la": "Orkney Islands",
+   "nation": "Scotland",
+   "pupils": 2.0,
+   "lat": 58.8259,
+   "lon": -3.104169
+  },
+  {
+   "id": "S8104522P",
+   "name": "Kilchattan Primary School",
+   "la": "Argyll and Bute",
+   "nation": "Scotland",
+   "pupils": 2.0,
+   "lat": 56.082453,
+   "lon": -6.218832
+  },
+  {
+   "id": "S5108020P",
+   "name": "Durness Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 2.0,
+   "lat": 58.567053,
+   "lon": -4.746992
+  },
+  {
+   "id": "S8103224P",
+   "name": "Furnace Primary School",
+   "la": "Argyll and Bute",
+   "nation": "Scotland",
+   "pupils": 3.0,
+   "lat": 56.152321,
+   "lon": -5.183219
+  },
+  {
+   "id": "S8101221P",
+   "name": "Barcaldine Primary School",
+   "la": "Argyll and Bute",
+   "nation": "Scotland",
+   "pupils": 3.0,
+   "lat": 56.52747,
+   "lon": -5.311657
+  },
+  {
+   "id": "E145341",
+   "name": "Black Torrington Church of England Primary School",
+   "la": "Devon",
+   "nation": "England",
+   "pupils": 3.0,
+   "lat": 50.830278,
+   "lon": -4.181324
+  },
+  {
+   "id": "S5136628P",
+   "name": "Muck Primary School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 4.0,
+   "lat": 56.835496,
+   "lon": -6.226928
+  }
+ ],
+ "biggest_secondary": [
+  {
+   "id": "E136669",
+   "name": "Brampton Manor Academy",
+   "la": "Newham",
+   "nation": "England",
+   "pupils": 2987.0,
+   "lat": 51.522577,
+   "lon": 0.04206,
+   "type": "Academy converter"
+  },
+  {
+   "id": "E136842",
+   "name": "Walton High",
+   "la": "Milton Keynes",
+   "nation": "England",
+   "pupils": 2969.0,
+   "lat": 52.020588,
+   "lon": -0.688507,
+   "type": "Academy converter"
+  },
+  {
+   "id": "E114611",
+   "name": "Cardinal Newman Catholic School",
+   "la": "Brighton and Hove",
+   "nation": "England",
+   "pupils": 2657.0,
+   "lat": 50.836982,
+   "lon": -0.157836,
+   "type": "Voluntary aided school"
+  },
+  {
+   "id": "E140575",
+   "name": "Beal High School",
+   "la": "Redbridge",
+   "nation": "England",
+   "pupils": 2615.0,
+   "lat": 51.58587,
+   "lon": 0.051725,
+   "type": "Academy converter"
+  },
+  {
+   "id": "E137981",
+   "name": "Ashfield Comprehensive School",
+   "la": "Nottinghamshire",
+   "nation": "England",
+   "pupils": 2601.0,
+   "lat": 53.110128,
+   "lon": -1.270316,
+   "type": "Academy converter"
+  },
+  {
+   "id": "E136309",
+   "name": "Kingsdale Foundation School",
+   "la": "Southwark",
+   "nation": "England",
+   "pupils": 2550.0,
+   "lat": 51.432321,
+   "lon": -0.085017,
+   "type": "Academy converter"
+  },
+  {
+   "id": "E144104",
+   "name": "St Mary's College Voluntary Catholic Academy",
+   "la": "Kingston upon Hull, City of",
+   "nation": "England",
+   "pupils": 2485.0,
+   "lat": 53.775312,
+   "lon": -0.363196,
+   "type": "Academy converter"
+  },
+  {
+   "id": "W6815403",
+   "name": "Whitchurch High School",
+   "la": "Cardiff",
+   "nation": "Wales",
+   "pupils": 2459.0,
+   "lat": 51.513412,
+   "lon": -3.223227,
+   "type": "Secondary (ages 11-19)"
+  },
+  {
+   "id": "E101241",
+   "name": "Barking Abbey School, A Specialist Sports and Humanities College",
+   "la": "Barking and Dagenham",
+   "nation": "England",
+   "pupils": 2418.0,
+   "lat": 51.542642,
+   "lon": 0.101496,
+   "type": "Community school"
+  },
+  {
+   "id": "E136414",
+   "name": "The de Ferrers Academy",
+   "la": "Staffordshire",
+   "nation": "England",
+   "pupils": 2403.0,
+   "lat": 52.829631,
+   "lon": -1.640825,
+   "type": "Academy converter"
+  },
+  {
+   "id": "E137005",
+   "name": "Graveney School",
+   "la": "Wandsworth",
+   "nation": "England",
+   "pupils": 2332.0,
+   "lat": 51.422856,
+   "lon": -0.151923,
+   "type": "Academy converter"
+  },
+  {
+   "id": "E139624",
+   "name": "Beauchamp College",
+   "la": "Leicestershire",
+   "nation": "England",
+   "pupils": 2309.0,
+   "lat": 52.588193,
+   "lon": -1.072392,
+   "type": "Academy converter"
+  }
+ ],
+ "biggest_secondary_by_nation": {
+  "England": {
+   "id": "E136669",
+   "name": "Brampton Manor Academy",
+   "la": "Newham",
+   "nation": "England",
+   "pupils": 2987.0,
+   "lat": 51.522577,
+   "lon": 0.04206
+  },
+  "Wales": {
+   "id": "W6815403",
+   "name": "Whitchurch High School",
+   "la": "Cardiff",
+   "nation": "Wales",
+   "pupils": 2459.0,
+   "lat": 51.513412,
+   "lon": -3.223227
+  },
+  "Scotland": {
+   "id": "S8434530S",
+   "name": "Holyrood Secondary School",
+   "la": "Glasgow City",
+   "nation": "Scotland",
+   "pupils": 2269.0,
+   "lat": 55.832676,
+   "lon": -4.25245
+  },
+  "Northern Ireland": {
+   "id": "N4210296",
+   "name": "Bangor Academy & Sixth Form College",
+   "la": "Ards And North Down",
+   "nation": "Northern Ireland",
+   "pupils": 1867.0,
+   "lat": 54.657234,
+   "lon": -5.664694
+  }
+ },
+ "median_pupils_secondary": {
+  "England": 1031.5,
+  "Wales": 947.0,
+  "Scotland": 881.0,
+  "Northern Ireland": 817.0
+ },
+ "tiny_secondary": {
+  "England": 10,
+  "Wales": 0,
+  "Scotland": 24,
+  "Northern Ireland": 2
+ },
+ "smallest_secondary": [
+  {
+   "id": "S1003062S",
+   "name": "East Dunbartonshire Central School",
+   "la": "East Dunbartonshire",
+   "nation": "Scotland",
+   "pupils": 1.0,
+   "lat": 55.936294,
+   "lon": -4.157118
+  },
+  {
+   "id": "S6003834S",
+   "name": "Stronsay Junior High School",
+   "la": "Orkney Islands",
+   "nation": "Scotland",
+   "pupils": 16.0,
+   "lat": 59.120033,
+   "lon": -2.610182
+  },
+  {
+   "id": "S5918332S",
+   "name": "Dalry Secondary School",
+   "la": "Dumfries and Galloway",
+   "nation": "Scotland",
+   "pupils": 21.0,
+   "lat": 55.104381,
+   "lon": -4.161827
+  },
+  {
+   "id": "S6003230S",
+   "name": "Sanday Community School",
+   "la": "Orkney Islands",
+   "nation": "Scotland",
+   "pupils": 25.0,
+   "lat": 59.2511,
+   "lon": -2.587155
+  },
+  {
+   "id": "S6103138S",
+   "name": "Baltasound Junior High School",
+   "la": "Shetland Islands",
+   "nation": "Scotland",
+   "pupils": 25.0,
+   "lat": 60.759362,
+   "lon": -0.885156
+  },
+  {
+   "id": "S5153239S",
+   "name": "Kinlochbervie High School",
+   "la": "Highland",
+   "nation": "Scotland",
+   "pupils": 27.0,
+   "lat": 58.461,
+   "lon": -5.03616
+  },
+  {
+   "id": "S6003036S",
+   "name": "Westray Junior High School",
+   "la": "Orkney Islands",
+   "nation": "Scotland",
+   "pupils": 35.0,
+   "lat": 59.318976,
+   "lon": -2.991252
+  },
+  {
+   "id": "S8110131S",
+   "name": "Tiree High School",
+   "la": "Argyll and Bute",
+   "nation": "Scotland",
+   "pupils": 37.0,
+   "lat": 56.522873,
+   "lon": -6.917462
+  }
+ ],
+ "biggest_all_through": [
+  {
+   "id": "E101245",
+   "name": "Robert Clack School",
+   "la": "Barking and Dagenham",
+   "nation": "England",
+   "pupils": 3231.0,
+   "lat": 51.56268,
+   "lon": 0.153958
+  },
+  {
+   "id": "E140475",
+   "name": "Loxford School",
+   "la": "Redbridge",
+   "nation": "England",
+   "pupils": 2799.0,
+   "lat": 51.549313,
+   "lon": 0.088981
+  },
+  {
+   "id": "E141683",
+   "name": "The Sydney Russell School",
+   "la": "Barking and Dagenham",
+   "nation": "England",
+   "pupils": 2568.0,
+   "lat": 51.548763,
+   "lon": 0.132573
+  },
+  {
+   "id": "E108076",
+   "name": "Roundhay School",
+   "la": "Leeds",
+   "nation": "England",
+   "pupils": 2554.0,
+   "lat": 53.829677,
+   "lon": -1.51475
+  },
+  {
+   "id": "E136454",
+   "name": "Oakgrove School",
+   "la": "Milton Keynes",
+   "nation": "England",
+   "pupils": 2527.0,
+   "lat": 52.038945,
+   "lon": -0.709387
+  }
+ ],
+ "catchments": {
+  "n": 2992,
+  "authorities": 33,
+  "matched": 2939,
+  "matched_share": 0.982,
+  "by_nation": {
+   "England": {
+    "authorities": 11,
+    "n": 1277,
+    "km2": 32285
+   },
+   "Scotland": {
+    "authorities": 21,
+    "n": 1690,
+    "km2": 138657
+   },
+   "Wales": {
+    "authorities": 1,
+    "n": 25,
+    "km2": 447
+   }
+  },
+  "authorities_list": {
+   "England": [
+    "Bracknell Forest",
+    "Cornwall",
+    "East Riding of Yorkshire",
+    "Hampshire",
+    "North Tyneside",
+    "Northumberland",
+    "Nottingham",
+    "Sheffield",
+    "Southend-on-Sea",
+    "Telford and Wrekin",
+    "Wiltshire"
+   ],
+   "Scotland": [
+    "Aberdeen City",
+    "Aberdeenshire",
+    "Argyll and Bute",
+    "City of Edinburgh",
+    "Dumfries and Galloway",
+    "Dundee City",
+    "East Dunbartonshire",
+    "East Lothian",
+    "Falkirk",
+    "Fife",
+    "Highland",
+    "Midlothian",
+    "Moray",
+    "North Ayrshire",
+    "North Lanarkshire",
+    "Perth and Kinross",
+    "Renfrewshire",
+    "South Ayrshire",
+    "Stirling",
+    "West Dunbartonshire",
+    "West Lothian"
+   ],
+   "Wales": [
+    "Merthyr Tydfil"
+   ]
+  }
+ },
+ "agreement": {
+  "all": 0.659,
+  "primary": 0.658,
+  "secondary": 0.661,
+  "nondenom": 0.648,
+  "denom": 0.743,
+  "median_catchment": 0.692,
+  "share_below_half": 0.218,
+  "by_authority": {
+   "Aberdeen City": 0.67,
+   "Aberdeenshire": 0.709,
+   "Argyll and Bute": 0.685,
+   "Bracknell Forest": 0.553,
+   "City of Edinburgh": 0.647,
+   "Cornwall": 0.733,
+   "Dumfries and Galloway": 0.693,
+   "Dundee City": 0.654,
+   "East Dunbartonshire": 0.628,
+   "East Lothian": 0.735,
+   "East Riding of Yorkshire": 0.584,
+   "Falkirk": 0.62,
+   "Fife": 0.654,
+   "Hampshire": 0.591,
+   "Highland": 0.679,
+   "Merthyr Tydfil": 0.501,
+   "Midlothian": 0.552,
+   "Moray": 0.702,
+   "North Ayrshire": 0.801,
+   "North Lanarkshire": 0.694,
+   "North Tyneside": 0.485,
+   "Northumberland": 0.498,
+   "Nottingham": 0.566,
+   "Perth and Kinross": 0.663,
+   "Renfrewshire": 0.635,
+   "Sheffield": 0.462,
+   "South Ayrshire": 0.745,
+   "Southend-on-Sea": 0.554,
+   "Stirling": 0.691,
+   "Telford and Wrekin": 0.545,
+   "West Dunbartonshire": 0.773,
+   "West Lothian": 0.702,
+   "Wiltshire": 0.516
+  }
+ },
+ "biggest_catchments_primary": [
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Ullapool Primary School",
+   "km2": 985.7,
+   "school": "Ullapool Primary School",
+   "pupils": 129.0,
+   "school_id": "S5153522P"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Spean Bridge Primary School",
+   "km2": 957.1,
+   "school": "Spean Bridge Primary School",
+   "pupils": 87.0,
+   "school_id": "S5134420P"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Newtonmore Primary School",
+   "km2": 870.3,
+   "school": "Newtonmore Primary School",
+   "pupils": 115.0,
+   "school_id": "S5145929P"
+  },
+  {
+   "authority": "Perth and Kinross",
+   "nation": "Scotland",
+   "catchment": "Kinloch Rannoch Primary School",
+   "km2": 787.3,
+   "school": "Kinloch Rannoch Primary School",
+   "pupils": 16.0,
+   "school_id": "S5345022P"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Gairloch Primary School",
+   "km2": 701.8,
+   "school": "Gairloch Primary School",
+   "pupils": 56.0,
+   "school_id": "S5153425P"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Rosehall Primary School",
+   "km2": 700.3,
+   "school": "Rosehall Primary School",
+   "pupils": 11.0,
+   "school_id": "S5108721P"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Kilchuimen Primary School",
+   "km2": 684.7,
+   "school": "Kilchuimen Primary School",
+   "pupils": 48.0,
+   "school_id": "S5153727P"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Tongue Primary School",
+   "km2": 680.8,
+   "school": "Tongue Primary School",
+   "pupils": 27.0,
+   "school_id": "S5110327P"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Helmsdale Primary School",
+   "km2": 657.7,
+   "school": "Helmsdale Primary School",
+   "pupils": 46.0,
+   "school_id": "S5110823P"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Invergarry Primary School",
+   "km2": 573.1,
+   "school": "Invergarry Primary School",
+   "pupils": 22.0,
+   "school_id": "S5134129P"
+  },
+  {
+   "authority": "Argyll and Bute",
+   "nation": "Scotland",
+   "catchment": "Dalmally",
+   "km2": 570.3,
+   "school": "Dalmally Primary School",
+   "pupils": 30.0,
+   "school_id": "S8102325P"
+  },
+  {
+   "authority": "Aberdeenshire",
+   "nation": "Scotland",
+   "catchment": "Braemar School",
+   "km2": 566.1,
+   "school": "Braemar School",
+   "pupils": 31.0,
+   "school_id": "S5256429P"
+  }
+ ],
+ "catchment_median_km2_primary": {
+  "England": 6.58,
+  "Scotland": 13.05,
+  "Wales": 5.58
+ },
+ "catchment_median_km2_primary_by_auth": {
+  "Aberdeen City": 1.78,
+  "Aberdeenshire": 29.6,
+  "Argyll and Bute": 78.95,
+  "Bracknell Forest": 2.33,
+  "City of Edinburgh": 1.59,
+  "Cornwall": 14.95,
+  "Dumfries and Galloway": 43.03,
+  "Dundee City": 1.99,
+  "East Dunbartonshire": 3.42,
+  "East Lothian": 10.93,
+  "East Riding of Yorkshire": 17.42,
+  "Falkirk": 3.93,
+  "Fife": 6.83,
+  "Hampshire": 6.34,
+  "Highland": 73.12,
+  "Merthyr Tydfil": 5.58,
+  "Midlothian": 5.54,
+  "Moray": 29.58,
+  "North Ayrshire": 7.89,
+  "North Lanarkshire": 4.31,
+  "North Tyneside": 0.24,
+  "Northumberland": 13.84,
+  "Nottingham": 0.86,
+  "Perth and Kinross": 33.53,
+  "Renfrewshire": 3.02,
+  "Sheffield": 1.57,
+  "South Ayrshire": 15.79,
+  "Southend-on-Sea": 1.72,
+  "Stirling": 32.06,
+  "Telford and Wrekin": 2.65,
+  "West Dunbartonshire": 4.47,
+  "West Lothian": 4.1,
+  "Wiltshire": 12.29
+ },
+ "biggest_denom_primary": [
+  {
+   "authority": "Argyll and Bute",
+   "catchment": "St Columbas",
+   "km2": 1514.2
+  },
+  {
+   "authority": "Perth and Kinross",
+   "catchment": "St Dominics RC Primary School",
+   "km2": 961.2
+  },
+  {
+   "authority": "South Ayrshire",
+   "catchment": "Sacred Heart",
+   "km2": 822.9
+  },
+  {
+   "authority": "Perth and Kinross",
+   "catchment": "St Stephens RC Primary School",
+   "km2": 759.9
+  },
+  {
+   "authority": "Perth and Kinross",
+   "catchment": "St Johns RC Academy",
+   "km2": 481.5
+  }
+ ],
+ "biggest_catchments_secondary": [
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Golspie High School",
+   "km2": 2215.2,
+   "school": "Golspie High School",
+   "pupils": 264.0,
+   "school_id": "S5109531S"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Lochaber High School",
+   "km2": 2048.2,
+   "school": "Lochaber High School",
+   "pupils": 839.0,
+   "school_id": "S5135931S"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Ullapool High School",
+   "km2": 2031.4,
+   "school": "Ullapool High School",
+   "pupils": 173.0,
+   "school_id": "S5119936S"
+  },
+  {
+   "authority": "Argyll and Bute",
+   "nation": "Scotland",
+   "catchment": "Oban High School",
+   "km2": 1862.2,
+   "school": "Oban High School",
+   "pupils": 1009.0,
+   "school_id": "S8110336S"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Portree High School",
+   "km2": 1725.7,
+   "school": "Portree High School",
+   "pupils": 494.0,
+   "school_id": "S5128234S"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Kingussie High School",
+   "km2": 1674.4,
+   "school": "Kingussie High School",
+   "pupils": 417.0,
+   "school_id": "S5146038S"
+  },
+  {
+   "authority": "Northumberland",
+   "nation": "England",
+   "catchment": "Haydon Bridge High School",
+   "km2": 1662.6,
+   "school": "Haydon Bridge High School",
+   "pupils": 392.0,
+   "school_id": "E122328"
+  },
+  {
+   "authority": "Perth and Kinross",
+   "nation": "Scotland",
+   "catchment": "Breadalbane Academy",
+   "km2": 1607.2,
+   "school": "Breadalbane Academy",
+   "pupils": 410.0,
+   "school_id": "S5349834S"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Plockton High School",
+   "km2": 1585.5,
+   "school": "Plockton High School",
+   "pupils": 213.0,
+   "school_id": "S5123437S"
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "catchment": "Farr High School",
+   "km2": 1552.4,
+   "school": "Farr High School",
+   "pupils": 68.0,
+   "school_id": "S5110432S"
+  },
+  {
+   "authority": "Aberdeenshire",
+   "nation": "Scotland",
+   "catchment": "Aboyne Academy",
+   "km2": 1545.6,
+   "school": "Aboyne Academy",
+   "pupils": 669.0,
+   "school_id": "S5257530S"
+  },
+  {
+   "authority": "Stirling",
+   "nation": "Scotland",
+   "catchment": "Mclaren High School",
+   "km2": 1501.1,
+   "school": "McLaren High School",
+   "pupils": 641.0,
+   "school_id": "S5722330S"
+  }
+ ],
+ "catchment_median_km2_secondary": {
+  "England": 26.25,
+  "Scotland": 52.3,
+  "Wales": 42.88
+ },
+ "catchment_median_km2_secondary_by_auth": {
+  "Aberdeen City": 14.9,
+  "Aberdeenshire": 233.28,
+  "Argyll and Bute": 482.63,
+  "City of Edinburgh": 7.23,
+  "Dundee City": 11.88,
+  "East Dunbartonshire": 14.71,
+  "East Lothian": 107.54,
+  "Falkirk": 39.93,
+  "Fife": 47.12,
+  "Hampshire": 35.48,
+  "Highland": 753.96,
+  "Merthyr Tydfil": 42.88,
+  "Midlothian": 97.96,
+  "Moray": 135.57,
+  "North Ayrshire": 45.17,
+  "North Lanarkshire": 17.91,
+  "North Tyneside": 7.82,
+  "Northumberland": 67.9,
+  "Nottingham": 5.89,
+  "Perth and Kinross": 266.52,
+  "Renfrewshire": 14.31,
+  "Sheffield": 10.74,
+  "South Ayrshire": 54.43,
+  "Southend-on-Sea": 6.26,
+  "Stirling": 94.15,
+  "Telford and Wrekin": 13.13,
+  "West Dunbartonshire": 46.26,
+  "West Lothian": 32.08,
+  "Wiltshire": 121.68
+ },
+ "biggest_denom_secondary": [
+  {
+   "authority": "Perth and Kinross",
+   "catchment": "St Johns RC Academy",
+   "km2": 2674.4
+  },
+  {
+   "authority": "South Ayrshire",
+   "catchment": "Queen Margaret Academy",
+   "km2": 1200.2
+  },
+  {
+   "authority": "Fife",
+   "catchment": "St Andrew's Roman Catholic High School",
+   "km2": 1027.3
+  },
+  {
+   "authority": "North Ayrshire",
+   "catchment": "St Matthew's Academy",
+   "km2": 873.0
+  },
+  {
+   "authority": "Midlothian",
+   "catchment": "St David's RC High School",
+   "km2": 354.7
+  }
+ ],
+ "highland": {
+  "primary_schools": 166,
+  "secondary_schools": 29,
+  "land_km2": 26156,
+  "catch_primary_n": 165,
+  "catch_secondary_n": 29
+ },
+ "land_distance": {
+  "England": {
+   "nation": "England",
+   "cells": 130453,
+   "prim_gt5": 0.062,
+   "prim_gt10": 0.004,
+   "sec_gt10": 0.092,
+   "sec_gt20": 0.005,
+   "prim_max": 26.7,
+   "sec_max": 33.7,
+   "prim_median": 1.9,
+   "sec_median": 4.59
+  },
+  "Wales": {
+   "nation": "Wales",
+   "cells": 20795,
+   "prim_gt5": 0.227,
+   "prim_gt10": 0.022,
+   "sec_gt10": 0.254,
+   "sec_gt20": 0.007,
+   "prim_max": 13.6,
+   "sec_max": 25.1,
+   "prim_median": 2.91,
+   "sec_median": 6.8
+  },
+  "Scotland": {
+   "nation": "Scotland",
+   "cells": 78752,
+   "prim_gt5": 0.528,
+   "prim_gt10": 0.229,
+   "sec_gt10": 0.577,
+   "sec_gt20": 0.22,
+   "prim_max": 76.6,
+   "sec_max": 88.8,
+   "prim_median": 5.32,
+   "sec_median": 11.65
+  },
+  "Northern Ireland": {
+   "nation": "Northern Ireland",
+   "cells": 14295,
+   "prim_gt5": 0.127,
+   "prim_gt10": 0.003,
+   "sec_gt10": 0.183,
+   "sec_gt20": 0.014,
+   "prim_max": 13.3,
+   "sec_max": 34.5,
+   "prim_median": 2.5,
+   "sec_median": 6.15
+  }
+ },
+ "settlements": {
+  "n": 29481,
+  "villages_hamlets": 28055,
+  "villages": 15155,
+  "hamlets": 12900,
+  "by_nation": {
+   "England": {
+    "n": 22193,
+    "prim_gt5": 0.02,
+    "prim_gt5_n": 444,
+    "sec_gt10": 0.05,
+    "sec_gt15_n": 140,
+    "prim_median": 1.59,
+    "sec_median": 4.46
+   },
+   "Scotland": {
+    "n": 3303,
+    "prim_gt5": 0.174,
+    "prim_gt5_n": 576,
+    "sec_gt10": 0.344,
+    "sec_gt15_n": 581,
+    "prim_median": 2.19,
+    "sec_median": 7.63
+   },
+   "Wales": {
+    "n": 2559,
+    "prim_gt5": 0.073,
+    "prim_gt5_n": 187,
+    "sec_gt10": 0.125,
+    "sec_gt15_n": 47,
+    "prim_median": 1.91,
+    "sec_median": 5.29
+   }
+  },
+  "villages_with_primary_within_2km": 0.703,
+  "farthest_primary": [
+   {
+    "name": "Badanloch",
+    "county": "Highland",
+    "nation": "Scotland",
+    "km": 28.68,
+    "school": "Helmsdale Primary School"
+   },
+   {
+    "name": "Incheril",
+    "county": "Highland",
+    "nation": "Scotland",
+    "km": 23.15,
+    "school": "Shieldaig Primary School"
+   },
+   {
+    "name": "Kinbrace",
+    "county": "Highland",
+    "nation": "Scotland",
+    "km": 23.03,
+    "school": "Helmsdale Primary School"
+   },
+   {
+    "name": "Forsinard",
+    "county": "Highland",
+    "nation": "Scotland",
+    "km": 22.92,
+    "school": "Melvich Primary School"
+   },
+   {
+    "name": "Kinlochewe",
+    "county": "Highland",
+    "nation": "Scotland",
+    "km": 22.63,
+    "school": "Shieldaig Primary School"
+   },
+   {
+    "name": "Klibreck",
+    "county": "Highland",
+    "nation": "Scotland",
+    "km": 22.52,
+    "school": "Tongue Primary School"
+   },
+   {
+    "name": "Altnaharra",
+    "county": "Highland",
+    "nation": "Scotland",
+    "km": 21.93,
+    "school": "Tongue Primary School"
+   },
+   {
+    "name": "Gleann Fhionnainn",
+    "county": "Highland",
+    "nation": "Scotland",
+    "km": 20.15,
+    "school": "Ardgour Primary School"
+   },
+   {
+    "name": "Coille Mhorgil",
+    "county": "Highland",
+    "nation": "Scotland",
+    "km": 20.03,
+    "school": "Invergarry Primary School"
+   },
+   {
+    "name": "Hushinish",
+    "county": "Na h-Eileanan an Iar",
+    "nation": "Scotland",
+    "km": 19.96,
+    "school": "Sir E Scott School"
+   }
+  ],
+  "farthest_secondary": [
+   {
+    "name": "Da Hametoon",
+    "county": "Shetland Islands",
+    "nation": "Scotland",
+    "km": 42.17,
+    "school": "Aith Junior High School",
+    "island": 1,
+    "lat": 60.12025,
+    "lon": -2.06379
+   },
+   {
+    "name": "Da Nort Toons",
+    "county": "Shetland Islands",
+    "nation": "Scotland",
+    "km": 41.22,
+    "school": "Aith Junior High School",
+    "island": 1,
+    "lat": 60.15349,
+    "lon": -2.07392
+   },
+   {
+    "name": "A' Chill",
+    "county": "Highland",
+    "nation": "Scotland",
+    "km": 41.15,
+    "school": "Mallaig High School",
+    "island": 1,
+    "lat": 57.05765,
+    "lon": -6.50082
+   },
+   {
+    "name": "Da Toon o Ham",
+    "county": "Shetland Islands",
+    "nation": "Scotland",
+    "km": 41.01,
+    "school": "Aith Junior High School",
+    "island": 1,
+    "lat": 60.13587,
+    "lon": -2.05536
+   },
+   {
+    "name": "Uragaig",
+    "county": "Argyll and Bute",
+    "nation": "Scotland",
+    "km": 39.17,
+    "school": "Islay High School",
+    "island": 1,
+    "lat": 56.10234,
+    "lon": -6.18964
+   },
+   {
+    "name": "Baile Mòr",
+    "county": "Argyll and Bute",
+    "nation": "Scotland",
+    "km": 38.34,
+    "school": "Tobermory High School",
+    "island": 1,
+    "lat": 56.33109,
+    "lon": -6.39464
+   },
+   {
+    "name": "Fionnphort",
+    "county": "Argyll and Bute",
+    "nation": "Scotland",
+    "km": 38.11,
+    "school": "Tobermory High School",
+    "island": 1,
+    "lat": 56.32411,
+    "lon": -6.36559
+   },
+   {
+    "name": "Àird Uig",
+    "county": "Na h-Eileanan an Iar",
+    "nation": "Scotland",
+    "km": 38.04,
+    "school": "e-Sgoil nan Eilean Siar",
+    "island": 1,
+    "lat": 58.23141,
+    "lon": -7.02859
+   },
+   {
+    "name": "Braemar",
+    "county": "Aberdeenshire",
+    "nation": "Scotland",
+    "km": 37.54,
+    "school": "Aboyne Academy",
+    "island": 0,
+    "lat": 57.00597,
+    "lon": -3.40071
+   },
+   {
+    "name": "Bunessan",
+    "county": "Argyll and Bute",
+    "nation": "Scotland",
+    "km": 35.62,
+    "school": "Tobermory High School",
+    "island": 1,
+    "lat": 56.31738,
+    "lon": -6.23121
+   }
+  ],
+  "farthest_secondary_mainland": [
+   {
+    "name": "Braemar",
+    "county": "Aberdeenshire",
+    "km": 37.54,
+    "school": "Aboyne Academy",
+    "lat": 57.00597,
+    "lon": -3.40071
+   },
+   {
+    "name": "Newport",
+    "county": "Highland",
+    "km": 35.34,
+    "school": "Wick High School",
+    "lat": 58.1953,
+    "lon": -3.48861
+   },
+   {
+    "name": "Tyndrum",
+    "county": "Stirling",
+    "km": 34.87,
+    "school": "Kinlochleven High School",
+    "lat": 56.43522,
+    "lon": -4.7101
+   },
+   {
+    "name": "Clifton",
+    "county": "Stirling",
+    "km": 34.45,
+    "school": "Kinlochleven High School",
+    "lat": 56.43841,
+    "lon": -4.71387
+   },
+   {
+    "name": "Pubil",
+    "county": "Perth and Kinross",
+    "km": 34.32,
+    "school": "Kinlochleven High School",
+    "lat": 56.54424,
+    "lon": -4.50078
+   }
+  ],
+  "farthest_primary_mainland": [
+   {
+    "name": "Badanloch",
+    "county": "Highland",
+    "km": 28.68,
+    "school": "Helmsdale Primary School"
+   },
+   {
+    "name": "Incheril",
+    "county": "Highland",
+    "km": 23.15,
+    "school": "Shieldaig Primary School"
+   },
+   {
+    "name": "Kinbrace",
+    "county": "Highland",
+    "km": 23.03,
+    "school": "Helmsdale Primary School"
+   },
+   {
+    "name": "Forsinard",
+    "county": "Highland",
+    "km": 22.92,
+    "school": "Melvich Primary School"
+   },
+   {
+    "name": "Kinlochewe",
+    "county": "Highland",
+    "km": 22.63,
+    "school": "Shieldaig Primary School"
+   }
+  ],
+  "island_share": 0.033,
+  "town_farthest_secondary": [
+   {
+    "name": "Inbhir Aora",
+    "county": "Argyll and Bute",
+    "km": 31.19,
+    "school": "Oban High School"
+   },
+   {
+    "name": "Whithorn",
+    "county": "Dumfries and Galloway",
+    "km": 25.59,
+    "school": "Kirkcudbright Academy"
+   },
+   {
+    "name": "Wooler",
+    "county": "Northumberland",
+    "km": 23.3,
+    "school": "Berwick Academy"
+   },
+   {
+    "name": "Lynton",
+    "county": "Devon",
+    "km": 19.73,
+    "school": "The Ilfracombe Church of England Academy"
+   },
+   {
+    "name": "Llanymddyfri",
+    "county": "Sir Gaerfyrddin - Carmarthenshire",
+    "km": 19.36,
+    "school": "Ysgol Bro Dinefwr"
+   }
+  ]
+ },
+ "distance_bins": {
+  "primary": {
+   "England": [
+    7050,
+    6713,
+    4870,
+    3115,
+    439,
+    6,
+    0
+   ],
+   "Scotland": [
+    937,
+    600,
+    515,
+    672,
+    470,
+    100,
+    9
+   ],
+   "Wales": [
+    728,
+    611,
+    466,
+    565,
+    182,
+    7,
+    0
+   ]
+  },
+  "secondary": {
+   "England": [
+    717,
+    2136,
+    3268,
+    6731,
+    8231,
+    1070,
+    40
+   ],
+   "Scotland": [
+    96,
+    135,
+    254,
+    521,
+    1159,
+    817,
+    321
+   ],
+   "Wales": [
+    85,
+    202,
+    292,
+    623,
+    1036,
+    316,
+    5
+   ]
+  }
+ },
+ "distance_bin_edges": [
+  0,
+  1,
+  2,
+  3,
+  5,
+  10,
+  20
+ ],
+ "la_n": 219,
+ "coverage": [
+  {
+   "authority": "Aberdeen City",
+   "nation": "Scotland",
+   "primary": 45,
+   "secondary": 11,
+   "denom": 0,
+   "km2": 164
+  },
+  {
+   "authority": "Aberdeenshire",
+   "nation": "Scotland",
+   "primary": 147,
+   "secondary": 23,
+   "denom": 0,
+   "km2": 6563
+  },
+  {
+   "authority": "Argyll and Bute",
+   "nation": "Scotland",
+   "primary": 67,
+   "secondary": 12,
+   "denom": 5,
+   "km2": 7427
+  },
+  {
+   "authority": "City of Edinburgh",
+   "nation": "Scotland",
+   "primary": 78,
+   "secondary": 20,
+   "denom": 18,
+   "km2": 257
+  },
+  {
+   "authority": "Dumfries and Galloway",
+   "nation": "Scotland",
+   "primary": 90,
+   "secondary": 0,
+   "denom": 0,
+   "km2": 6428
+  },
+  {
+   "authority": "Dundee City",
+   "nation": "Scotland",
+   "primary": 23,
+   "secondary": 5,
+   "denom": 12,
+   "km2": 60
+  },
+  {
+   "authority": "East Dunbartonshire",
+   "nation": "Scotland",
+   "primary": 27,
+   "secondary": 7,
+   "denom": 7,
+   "km2": 174
+  },
+  {
+   "authority": "East Lothian",
+   "nation": "Scotland",
+   "primary": 32,
+   "secondary": 7,
+   "denom": 0,
+   "km2": 679
+  },
+  {
+   "authority": "Falkirk",
+   "nation": "Scotland",
+   "primary": 40,
+   "secondary": 7,
+   "denom": 9,
+   "km2": 297
+  },
+  {
+   "authority": "Fife",
+   "nation": "Scotland",
+   "primary": 119,
+   "secondary": 16,
+   "denom": 16,
+   "km2": 1322
+  },
+  {
+   "authority": "Highland",
+   "nation": "Scotland",
+   "primary": 165,
+   "secondary": 29,
+   "denom": 0,
+   "km2": 26144
+  },
+  {
+   "authority": "Midlothian",
+   "nation": "Scotland",
+   "primary": 25,
+   "secondary": 3,
+   "denom": 7,
+   "km2": 355
+  },
+  {
+   "authority": "Moray",
+   "nation": "Scotland",
+   "primary": 41,
+   "secondary": 8,
+   "denom": 3,
+   "km2": 2221
+  },
+  {
+   "authority": "North Ayrshire",
+   "nation": "Scotland",
+   "primary": 40,
+   "secondary": 8,
+   "denom": 11,
+   "km2": 865
+  },
+  {
+   "authority": "North Lanarkshire",
+   "nation": "Scotland",
+   "primary": 73,
+   "secondary": 17,
+   "denom": 60,
+   "km2": 473
+  },
+  {
+   "authority": "Perth and Kinross",
+   "nation": "Scotland",
+   "primary": 63,
+   "secondary": 15,
+   "denom": 5,
+   "km2": 5381
+  },
+  {
+   "authority": "Renfrewshire",
+   "nation": "Scotland",
+   "primary": 35,
+   "secondary": 8,
+   "denom": 19,
+   "km2": 261
+  },
+  {
+   "authority": "South Ayrshire",
+   "nation": "Scotland",
+   "primary": 36,
+   "secondary": 8,
+   "denom": 6,
+   "km2": 1168
+  },
+  {
+   "authority": "Stirling",
+   "nation": "Scotland",
+   "primary": 35,
+   "secondary": 6,
+   "denom": 0,
+   "km2": 2233
+  },
+  {
+   "authority": "West Dunbartonshire",
+   "nation": "Scotland",
+   "primary": 19,
+   "secondary": 3,
+   "denom": 16,
+   "km2": 157
+  },
+  {
+   "authority": "West Lothian",
+   "nation": "Scotland",
+   "primary": 53,
+   "secondary": 11,
+   "denom": 19,
+   "km2": 428
+  },
+  {
+   "authority": "Bracknell Forest",
+   "nation": "England",
+   "primary": 30,
+   "secondary": 0,
+   "denom": 0,
+   "km2": 109
+  },
+  {
+   "authority": "Cornwall",
+   "nation": "England",
+   "primary": 98,
+   "secondary": 0,
+   "denom": 0,
+   "km2": 1915
+  },
+  {
+   "authority": "East Riding of Yorkshire",
+   "nation": "England",
+   "primary": 123,
+   "secondary": 0,
+   "denom": 0,
+   "km2": 2713
+  },
+  {
+   "authority": "Hampshire",
+   "nation": "England",
+   "primary": 312,
+   "secondary": 68,
+   "denom": 0,
+   "km2": 3858
+  },
+  {
+   "authority": "North Tyneside",
+   "nation": "England",
+   "primary": 1,
+   "secondary": 9,
+   "denom": 0,
+   "km2": 82
+  },
+  {
+   "authority": "Northumberland",
+   "nation": "England",
+   "primary": 117,
+   "secondary": 15,
+   "denom": 0,
+   "km2": 5061
+  },
+  {
+   "authority": "Nottingham",
+   "nation": "England",
+   "primary": 63,
+   "secondary": 5,
+   "denom": 0,
+   "km2": 72
+  },
+  {
+   "authority": "Sheffield",
+   "nation": "England",
+   "primary": 101,
+   "secondary": 26,
+   "denom": 0,
+   "km2": 511
+  },
+  {
+   "authority": "Southend-on-Sea",
+   "nation": "England",
+   "primary": 24,
+   "secondary": 6,
+   "denom": 0,
+   "km2": 43
+  },
+  {
+   "authority": "Telford and Wrekin",
+   "nation": "England",
+   "primary": 51,
+   "secondary": 9,
+   "denom": 0,
+   "km2": 323
+  },
+  {
+   "authority": "Wiltshire",
+   "nation": "England",
+   "primary": 191,
+   "secondary": 28,
+   "denom": 0,
+   "km2": 4673
+  },
+  {
+   "authority": "Merthyr Tydfil",
+   "nation": "Wales",
+   "primary": 19,
+   "secondary": 3,
+   "denom": 3,
+   "km2": 223
+  }
+ ],
+ "lad_km2": {
+  "Hartlepool": 94,
+  "Middlesbrough": 54,
+  "Redcar and Cleveland": 245,
+  "Stockton-on-Tees": 205,
+  "Darlington": 198,
+  "Halton": 79,
+  "Warrington": 181,
+  "Blackburn with Darwen": 137,
+  "Blackpool": 35,
+  "Kingston upon Hull, City of": 71,
+  "East Riding of Yorkshire": 2405,
+  "North East Lincolnshire": 193,
+  "North Lincolnshire": 847,
+  "York": 272,
+  "Derby": 78,
+  "Leicester": 73,
+  "Rutland": 394,
+  "Nottingham": 75,
+  "Herefordshire, County of": 2180,
+  "Telford and Wrekin": 290,
+  "Stoke-on-Trent": 93,
+  "Bath and North East Somerset": 351,
+  "Bristol, City of": 110,
+  "North Somerset": 375,
+  "South Gloucestershire": 497,
+  "Plymouth": 80,
+  "Torbay": 63,
+  "Swindon": 230,
+  "Peterborough": 343,
+  "Luton": 43,
+  "Southend-on-Sea": 42,
+  "Thurrock": 164,
+  "Medway": 194,
+  "Bracknell Forest": 109,
+  "West Berkshire": 704,
+  "Reading": 40,
+  "Slough": 33,
+  "Windsor and Maidenhead": 198,
+  "Wokingham": 179,
+  "Milton Keynes": 309,
+  "Brighton and Hove": 83,
+  "Portsmouth": 40,
+  "Southampton": 50,
+  "Isle of Wight": 380,
+  "County Durham": 2231,
+  "Cheshire East": 1166,
+  "Cheshire West and Chester": 920,
+  "Shropshire": 3197,
+  "Cornwall": 3549,
+  "Isles of Scilly": 16,
+  "Wiltshire": 3256,
+  "Bedford": 476,
+  "Central Bedfordshire": 716,
+  "Northumberland": 5032,
+  "Bournemouth, Christchurch and Poole": 162,
+  "Dorset": 2492,
+  "Buckinghamshire": 1565,
+  "North Northamptonshire": 986,
+  "West Northamptonshire": 1380,
+  "Cumberland": 3036,
+  "Westmorland and Furness": 3790,
+  "North Yorkshire": 8040,
+  "Somerset": 3452,
+  "Cambridge": 41,
+  "East Cambridgeshire": 651,
+  "Fenland": 546,
+  "Huntingdonshire": 912,
+  "South Cambridgeshire": 902,
+  "Amber Valley": 266,
+  "Bolsover": 160,
+  "Chesterfield": 66,
+  "Derbyshire Dales": 795,
+  "Erewash": 110,
+  "High Peak": 540,
+  "North East Derbyshire": 276,
+  "South Derbyshire": 338,
+  "East Devon": 815,
+  "Exeter": 47,
+  "Mid Devon": 913,
+  "North Devon": 1086,
+  "South Hams": 887,
+  "Teignbridge": 674,
+  "Torridge": 985,
+  "West Devon": 1161,
+  "Eastbourne": 44,
+  "Hastings": 30,
+  "Lewes": 292,
+  "Rother": 512,
+  "Wealden": 835,
+  "Basildon": 110,
+  "Braintree": 612,
+  "Brentwood": 153,
+  "Castle Point": 44,
+  "Chelmsford": 342,
+  "Colchester": 332,
+  "Epping Forest": 339,
+  "Harlow": 31,
+  "Maldon": 357,
+  "Rochford": 167,
+  "Tendring": 336,
+  "Uttlesford": 641,
+  "Cheltenham": 47,
+  "Cotswold": 1165,
+  "Forest of Dean": 526,
+  "Gloucester": 40,
+  "Stroud": 461,
+  "Tewkesbury": 414,
+  "Basingstoke and Deane": 634,
+  "East Hampshire": 514,
+  "Eastleigh": 80,
+  "Fareham": 74,
+  "Gosport": 25,
+  "Hart": 215,
+  "Havant": 56,
+  "New Forest": 752,
+  "Rushmoor": 39,
+  "Test Valley": 628,
+  "Winchester": 661,
+  "Broxbourne": 51,
+  "Dacorum": 213,
+  "Hertsmere": 101,
+  "North Hertfordshire": 375,
+  "Three Rivers": 89,
+  "Watford": 21,
+  "Ashford": 581,
+  "Canterbury": 309,
+  "Dartford": 73,
+  "Dover": 315,
+  "Gravesham": 99,
+  "Maidstone": 393,
+  "Sevenoaks": 370,
+  "Folkestone and Hythe": 357,
+  "Swale": 373,
+  "Thanet": 104,
+  "Tonbridge and Malling": 240,
+  "Tunbridge Wells": 331,
+  "Burnley": 111,
+  "Chorley": 203,
+  "Fylde": 166,
+  "Hyndburn": 73,
+  "Lancaster": 567,
+  "Pendle": 169,
+  "Preston": 142,
+  "Ribble Valley": 585,
+  "Rossendale": 138,
+  "South Ribble": 113,
+  "West Lancashire": 346,
+  "Wyre": 282,
+  "Blaby": 130,
+  "Charnwood": 279,
+  "Harborough": 593,
+  "Hinckley and Bosworth": 297,
+  "Melton": 481,
+  "North West Leicestershire": 279,
+  "Oadby and Wigston": 24,
+  "Boston": 363,
+  "East Lindsey": 1766,
+  "Lincoln": 36,
+  "North Kesteven": 922,
+  "South Holland": 749,
+  "South Kesteven": 943,
+  "West Lindsey": 1156,
+  "Breckland": 1305,
+  "Broadland": 552,
+  "Great Yarmouth": 174,
+  "King's Lynn and West Norfolk": 1439,
+  "North Norfolk": 967,
+  "Norwich": 39,
+  "South Norfolk": 908,
+  "Ashfield": 110,
+  "Bassetlaw": 638,
+  "Broxtowe": 80,
+  "Gedling": 120,
+  "Mansfield": 77,
+  "Newark and Sherwood": 651,
+  "Rushcliffe": 409,
+  "Cherwell": 589,
+  "Oxford": 46,
+  "South Oxfordshire": 678,
+  "Vale of White Horse": 579,
+  "West Oxfordshire": 715,
+  "Cannock Chase": 79,
+  "East Staffordshire": 390,
+  "Lichfield": 331,
+  "Newcastle-under-Lyme": 211,
+  "South Staffordshire": 407,
+  "Stafford": 598,
+  "Staffordshire Moorlands": 576,
+  "Tamworth": 31,
+  "Babergh": 595,
+  "Ipswich": 39,
+  "Mid Suffolk": 871,
+  "Elmbridge": 96,
+  "Epsom and Ewell": 34,
+  "Guildford": 271,
+  "Mole Valley": 258,
+  "Reigate and Banstead": 129,
+  "Runnymede": 78,
+  "Spelthorne": 51,
+  "Surrey Heath": 95,
+  "Tandridge": 248,
+  "Waverley": 345,
+  "Woking": 64,
+  "North Warwickshire": 284,
+  "Nuneaton and Bedworth": 79,
+  "Rugby": 354,
+  "Stratford-on-Avon": 978,
+  "Warwick": 283,
+  "Adur": 42,
+  "Arun": 221,
+  "Chichester": 786,
+  "Crawley": 45,
+  "Horsham": 530,
+  "Mid Sussex": 334,
+  "Worthing": 33,
+  "Bromsgrove": 217,
+  "Malvern Hills": 577,
+  "Redditch": 54,
+  "Worcester": 33,
+  "Wychavon": 663,
+  "Wyre Forest": 195,
+  "St Albans": 161,
+  "Welwyn Hatfield": 129,
+  "East Hertfordshire": 476,
+  "Stevenage": 26,
+  "East Suffolk": 1261,
+  "West Suffolk": 1035,
+  "Bolton": 140,
+  "Bury": 100,
+  "Manchester": 116,
+  "Oldham": 142,
+  "Rochdale": 158,
+  "Salford": 97,
+  "Stockport": 126,
+  "Tameside": 103,
+  "Trafford": 106,
+  "Wigan": 188,
+  "Knowsley": 87,
+  "Liverpool": 112,
+  "St. Helens": 136,
+  "Sefton": 156,
+  "Wirral": 161,
+  "Barnsley": 329,
+  "Doncaster": 568,
+  "Rotherham": 287,
+  "Sheffield": 368,
+  "Newcastle upon Tyne": 113,
+  "North Tyneside": 82,
+  "South Tyneside": 65,
+  "Sunderland": 137,
+  "Birmingham": 268,
+  "Coventry": 99,
+  "Dudley": 98,
+  "Sandwell": 86,
+  "Solihull": 178,
+  "Walsall": 104,
+  "Wolverhampton": 69,
+  "Bradford": 366,
+  "Calderdale": 364,
+  "Kirklees": 409,
+  "Leeds": 552,
+  "Wakefield": 339,
+  "Gateshead": 142,
+  "City of London": 3,
+  "Barking and Dagenham": 36,
+  "Barnet": 87,
+  "Bexley": 61,
+  "Brent": 43,
+  "Bromley": 150,
+  "Camden": 22,
+  "Croydon": 87,
+  "Ealing": 56,
+  "Enfield": 82,
+  "Greenwich": 47,
+  "Hackney": 19,
+  "Hammersmith and Fulham": 16,
+  "Haringey": 30,
+  "Harrow": 50,
+  "Havering": 112,
+  "Hillingdon": 116,
+  "Hounslow": 56,
+  "Islington": 15,
+  "Kensington and Chelsea": 12,
+  "Kingston upon Thames": 37,
+  "Lambeth": 27,
+  "Lewisham": 35,
+  "Merton": 38,
+  "Newham": 36,
+  "Redbridge": 56,
+  "Richmond upon Thames": 57,
+  "Southwark": 29,
+  "Sutton": 44,
+  "Tower Hamlets": 20,
+  "Waltham Forest": 39,
+  "Wandsworth": 34,
+  "Westminster": 21,
+  "Antrim and Newtownabbey": 728,
+  "Armagh City, Banbridge and Craigavon": 1435,
+  "Belfast": 138,
+  "Causeway Coast and Glens": 1983,
+  "Derry City and Strabane": 1248,
+  "Fermanagh and Omagh": 3005,
+  "Lisburn and Castlereagh": 510,
+  "Mid and East Antrim": 1061,
+  "Mid Ulster": 1954,
+  "Newry, Mourne and Down": 1681,
+  "Ards and North Down": 567,
+  "Clackmannanshire": 159,
+  "Dumfries and Galloway": 6436,
+  "East Ayrshire": 1270,
+  "East Lothian": 679,
+  "East Renfrewshire": 174,
+  "Na h-Eileanan Siar": 3088,
+  "Falkirk": 297,
+  "Highland": 26156,
+  "Inverclyde": 162,
+  "Midlothian": 355,
+  "Moray": 2238,
+  "North Ayrshire": 886,
+  "Orkney Islands": 1016,
+  "Scottish Borders": 4739,
+  "Shetland Islands": 1467,
+  "South Ayrshire": 1224,
+  "South Lanarkshire": 1774,
+  "Stirling": 2252,
+  "Aberdeen City": 186,
+  "Aberdeenshire": 6318,
+  "Argyll and Bute": 7003,
+  "City of Edinburgh": 263,
+  "Renfrewshire": 261,
+  "West Dunbartonshire": 177,
+  "West Lothian": 429,
+  "Angus": 2185,
+  "Dundee City": 60,
+  "East Dunbartonshire": 174,
+  "Fife": 1325,
+  "Perth and Kinross": 5384,
+  "Glasgow City": 175,
+  "North Lanarkshire": 472,
+  "Isle of Anglesey": 715,
+  "Gwynedd": 2549,
+  "Conwy": 1131,
+  "Denbighshire": 839,
+  "Flintshire": 439,
+  "Wrexham": 504,
+  "Ceredigion": 1788,
+  "Pembrokeshire": 1618,
+  "Carmarthenshire": 2371,
+  "Swansea": 378,
+  "Neath Port Talbot": 442,
+  "Bridgend": 251,
+  "Vale of Glamorgan": 331,
+  "Cardiff": 142,
+  "Rhondda Cynon Taf": 424,
+  "Caerphilly": 277,
+  "Blaenau Gwent": 109,
+  "Torfaen": 126,
+  "Monmouthshire": 850,
+  "Newport": 190,
+  "Powys": 5195,
+  "Merthyr Tydfil": 112
+ },
+ "d": {
+  "scot_prim_gt5": 0.528,
+  "eng_prim_gt5": 0.062,
+  "scale_name": "Herefordshire",
+  "scale_km2": 2180,
+  "eng_big_name": "Haydon Bridge High School",
+  "eng_big_auth": "Northumberland",
+  "eng_big_km2": 1662.553,
+  "eng_zone_prim_med": 2.36,
+  "scot_zone_prim_med": 8.15,
+  "scot_zone_sec_med": 50.18,
+  "golspie_per_pupil": 8.39090909090909,
+  "golspie_fly": "57.975,-3.973,8",
+  "kielder_fly": "55.232,-2.580,10",
+  "bigschool_fly": "51.523,0.042,13",
+  "island_fly": "60.120,-2.064,9",
+  "far_county": "Shetland Islands",
+  "ag_min_name": "Sheffield",
+  "ag_min": 0.462,
+  "ag_max_name": "North Ayrshire",
+  "ag_max": 0.801,
+  "ag_scot": 0.685772250612849,
+  "ag_eng": 0.5460717791081091
+ },
+ "collage": {
+  "square_40km_primary_counts": {
+   "London": 1768,
+   "Fife": 114,
+   "Sutherland": 4
+  }
+ }
+}

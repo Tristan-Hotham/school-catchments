@@ -1,0 +1,9 @@
+nation,phase,schools,land_km2,mean_km2,median_km2,max_km2,p90_km2,pupils_median
+England,primary,16835,130451,7.75,2.36,297.7,21.6,226.0
+England,secondary,3419,130451,38.15,11.67,1064.8,107.9,1043.0
+Wales,primary,1223,20782,16.99,5.62,345.2,46.8,198.0
+Wales,secondary,204,20782,101.87,37.01,989.7,272.3,946.0
+Scotland,primary,1990,78787,39.59,8.15,841.0,97.5,176.0
+Scotland,secondary,362,78787,217.64,50.18,2389.7,662.7,881.0
+Northern Ireland,primary,775,14309,18.46,12.94,145.2,42.7,185.0
+Northern Ireland,secondary,189,14309,75.71,38.24,561.9,186.7,817.0
